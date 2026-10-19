@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #080104;
+  --color-brand-red: #E6004C;
+  --color-brand-neon: #FF1053;
+  --color-brand-darkred: #4a0316;
+  --color-glass-surface: rgba(255, 255, 255, 0.035);
+  --color-glass-border: rgba(255, 255, 255, 0.14);
+  --color-glass-highlight: rgba(255, 255, 255, 0.08);
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-editorial: 'Georgia', 'Times New Roman', Garamond, serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-tech: 'Courier New', Courier, monospace;
+}
+
+/* Custom Base Styles */
+:root {
+  color-scheme: dark;
+}
+
+* {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body {
+  background-color: #080104;
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Typography Classes */
+.font-display {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-editorial {
+  font-family: 'Georgia', 'Times New Roman', Garamond, serif;
+  font-style: italic;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-tech {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080104;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(230, 0, 76, 0.35);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(230, 0, 76, 0.7);
+}
+
+/* Hero Vignette as requested in spec */
+.hero-vignette {
+  background: radial-gradient(
+    ellipse 68% 68% at 50% 50%,
+    transparent 22%,
+    rgba(8, 1, 4, 0.4) 50%,
+    rgba(8, 1, 4, 0.8) 75%,
+    rgba(8, 1, 4, 0.98) 100%
+  );
+}
+
+/* Top & Bottom fade gradients to seamlessly dissolve into #080104 */
+.hero-vertical-fade {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 1, 4, 0.92) 0%,
+    transparent 15%,
+    transparent 85%,
+    #080104 100%
+  );
+}
+
+/* Glass styling utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.glass-panel-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(230, 0, 76, 0.5);
+  box-shadow: 0 10px 40px -10px rgba(230, 0, 76, 0.25);
+  transform: translateY(-3px);
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: 0 0 45px -5px rgba(230, 0, 76, 0.45);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 24px rgba(230, 0, 76, 0.6);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 24px rgba(255, 16, 83, 0.6);
+}
+
+/* Fluid Hero Headline Typography */
+.hero-headline {
+  font-size: clamp(2.75rem, 7.8vw, 6.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+/* Section Headline Fluid Typography */
+.section-headline {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+/* Background Subtle Grid Pattern */
+.bg-subtle-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Micro Animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes headlineReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmerEffect {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-headline-reveal {
+  animation: headlineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shimmer-gradient {
+  background-size: 200% auto;
+  animation: shimmerEffect 6s ease infinite;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-pulse-glow,
+  .animate-headline-reveal,
+  .animate-shimmer-gradient {
+    animation: none !important;
+    transform: none !important;
+  }
+}

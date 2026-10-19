@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: eclipto-agency
+    env: node
+    plan: free
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma db push && npm run seed:admin && npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        value: file:./dev.db
+      - key: JWT_SECRET
+        generateValue: true
+      - key: INITIAL_ADMIN_EMAIL
+        value: admin@eclipto.agency
+      - key: INITIAL_ADMIN_PASSWORD
+        value: EcliptoAdmin2026!
+      - key: INITIAL_ADMIN_NAME
+        value: Parvez Khan

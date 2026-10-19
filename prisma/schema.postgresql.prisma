@@ -1,0 +1,83 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum AdminRole {
+  SUPERADMIN
+  ADMIN
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  CONVERTED
+  CLOSED
+}
+
+enum EnquiryPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model AdminUser {
+  id           String            @id @default(cuid())
+  email        String            @unique
+  name         String?
+  passwordHash String
+  role         AdminRole         @default(ADMIN)
+  isActive     Boolean           @default(true)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  activities   EnquiryActivity[]
+
+  @@map("admin_users")
+}
+
+model Enquiry {
+  id            String            @id @default(cuid())
+  enquiryNumber String            @unique // e.g. EC-2026-0001
+  fullName      String
+  email         String
+  phone         String?
+  companyName   String?
+  service       String
+  budgetRange   String?
+  message       String            @db.Text
+  source        String            @default("website")
+  status        EnquiryStatus     @default(NEW)
+  priority      EnquiryPriority   @default(NORMAL)
+  internalNotes String?           @db.Text
+  assignedTo    String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  activities    EnquiryActivity[]
+
+  @@index([status])
+  @@index([service])
+  @@index([createdAt])
+  @@index([email])
+  @@map("enquiries")
+}
+
+model EnquiryActivity {
+  id          String     @id @default(cuid())
+  enquiryId   String
+  enquiry     Enquiry    @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  adminUserId String?
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  action      String     // STATUS_CHANGE, PRIORITY_CHANGE, NOTE_ADDED, ASSIGNED
+  description String     @db.Text
+  createdAt   DateTime   @default(now())
+
+  @@index([enquiryId])
+  @@map("enquiry_activities")
+}
