@@ -32,3 +32,4 @@ dist-ssr
 # Task logs and temporary artifacts
 .agents/
 .gemini/
+.vercel
