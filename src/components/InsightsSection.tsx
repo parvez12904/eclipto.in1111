@@ -7,16 +7,16 @@ export const InsightsSection: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<Insight | null>(null);
 
   return (
-    <section id="insights" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section id="insights" className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-8 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 border-b border-white/10 pb-6 sm:pb-8 gap-5">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-5">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4 sm:mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C]" />
-              <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
-                PERSPECTIVES & RESEARCH
+              <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
+                08 / PERSPECTIVES & RESEARCH
               </span>
             </div>
             <h2 className="section-headline uppercase text-white font-display font-black tracking-[-0.03em] leading-tight">
@@ -25,7 +25,7 @@ export const InsightsSection: React.FC = () => {
                 INSIGHTS.
               </span>
             </h2>
-            <p className="mt-4 text-white/75 font-body text-sm sm:text-base max-w-xl">
+            <p className="mt-3 sm:mt-4 text-white/75 font-body text-xs sm:text-sm md:text-base max-w-xl">
               Original architectural research on WebGPU, generative runtime UI, and
               micro-latency interface engineering.
             </p>
@@ -38,7 +38,7 @@ export const InsightsSection: React.FC = () => {
         </div>
 
         {/* 3 Insight Article Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {INSIGHTS.map((insight) => (
             <div
               key={insight.id}

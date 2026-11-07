@@ -25,24 +25,24 @@ export const WorkSection: React.FC = () => {
       : PROJECTS.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="work" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
+    <section id="work" className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10">
       {/* Ambient background light */}
       <div
-        className="absolute top-1/4 left-0 w-96 h-96 rounded-full bg-[#E6004C]/10 blur-[130px] pointer-events-none"
+        className="absolute top-1/4 left-0 w-80 h-80 rounded-full bg-[#E6004C]/10 blur-[130px] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full bg-[#FF1053]/10 blur-[130px] pointer-events-none"
+        className="absolute bottom-1/4 right-0 w-80 h-80 rounded-full bg-[#FF1053]/10 blur-[130px] pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-8 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 border-b border-white/10 pb-6 sm:pb-8 gap-5">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-5">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4 sm:mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C]" />
-              <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
+              <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
                 03 / PORTFOLIO & CLIENT WORK
               </span>
             </div>
@@ -52,7 +52,7 @@ export const WorkSection: React.FC = () => {
                 AN IMPRESSION.
               </span>
             </h2>
-            <p className="mt-4 text-white/75 font-body text-sm sm:text-base max-w-xl">
+            <p className="mt-3 sm:mt-4 text-white/75 font-body text-xs sm:text-sm md:text-base max-w-xl">
               Live enterprise client platforms, immersive digital showcases, and
               high-performance web architecture engineered for ambitious organizations.
             </p>
@@ -66,7 +66,7 @@ export const WorkSection: React.FC = () => {
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-2 rounded-full text-xs font-tech tracking-wider uppercase transition-all duration-300 ${
+                  className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-tech tracking-wider uppercase transition-all duration-300 ${
                     isActive
                       ? 'bg-[#E6004C] text-white shadow-[0_0_20px_rgba(230,0,76,0.5)] font-bold'
                       : 'glass-panel border border-white/15 text-white/60 hover:text-white hover:border-white/30'
@@ -80,8 +80,8 @@ export const WorkSection: React.FC = () => {
         </div>
 
         {/* 1. FEATURED LIVE CLIENT WEBSITES (DEVINE HOMZ, A TIGER GLOBAL, KRAFTOR) */}
-        <div className="mb-20">
-          <div className="flex items-center justify-between mb-8">
+        <div className="mb-14 sm:mb-18">
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
             <div className="flex items-center space-x-2.5">
               <Sparkles className="w-4 h-4 text-[#FF1053]" />
               <span className="font-tech text-xs tracking-[0.2em] uppercase text-white font-bold">
@@ -95,7 +95,7 @@ export const WorkSection: React.FC = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {CLIENT_PROJECTS.map((project: ClientProject, index: number) => (
               <div
                 key={project.id}

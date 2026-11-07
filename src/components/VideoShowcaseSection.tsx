@@ -81,7 +81,7 @@ export const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({ onNa
   return (
     <section
       id="showreel"
-      className="relative py-16 sm:py-20 md:py-24 bg-[#080104] z-10 border-t border-white/10 overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10 overflow-hidden"
       aria-label="Eclipto Cinematic Brand Film"
     >
       {/* Background ambient radial gradients */}
@@ -94,7 +94,7 @@ export const VideoShowcaseSection: React.FC<VideoShowcaseSectionProps> = ({ onNa
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-6">
           <div className="max-w-2xl">

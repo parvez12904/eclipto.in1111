@@ -112,21 +112,21 @@ export const ContactSection: React.FC = () => {
   });
 
   return (
-    <section id="contact" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
+    <section id="contact" className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10">
       {/* Background radial glow */}
       <div
         className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[650px] h-[650px] rounded-full bg-[#E6004C]/15 blur-[160px] pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         
         {/* Section Header (STEP 4) */}
-        <div className="max-w-3xl mb-16 md:mb-20">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-5">
+        <div className="max-w-3xl mb-10 sm:mb-12">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4 sm:mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C]" />
-            <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
-              05 / LET'S CONNECT
+            <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
+              09 / LET'S CONNECT
             </span>
           </div>
 
@@ -137,14 +137,14 @@ export const ContactSection: React.FC = () => {
             </span>
           </h2>
 
-          <p className="mt-5 text-white/75 font-body text-base sm:text-lg leading-relaxed max-w-2xl">
+          <p className="mt-3 sm:mt-4 text-white/75 font-body text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl">
             Have a website, software, AI automation, or digital marketing project
             in mind? Let's discuss your requirements.
           </p>
         </div>
 
         {/* 3 Prominent Functional Contact Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-10 sm:mb-14">
           
           {/* 1. CALL NOW */}
           <a

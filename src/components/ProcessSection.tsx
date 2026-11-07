@@ -4,15 +4,15 @@ import { CheckCircle2, Terminal } from 'lucide-react';
 
 export const ProcessSection: React.FC = () => {
   return (
-    <section id="process" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section id="process" className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Section Header (STEP 4) */}
-        <div className="max-w-3xl mb-16 md:mb-20">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-5">
+        <div className="max-w-3xl mb-10 sm:mb-12">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4 sm:mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C]" />
-            <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
-              04 / HOW WE WORK
+            <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
+              07 / HOW WE WORK
             </span>
           </div>
 
@@ -23,14 +23,14 @@ export const ProcessSection: React.FC = () => {
             </span>
           </h2>
 
-          <p className="mt-5 text-white/75 font-body text-base sm:text-lg leading-relaxed max-w-2xl">
+          <p className="mt-3 sm:mt-4 text-white/75 font-body text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl">
             A battle-tested 4-phase engineering pipeline that transforms visionary
             ambition into bulletproof, high-conversion digital reality.
           </p>
         </div>
 
         {/* 4-Phase Process Timeline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 relative">
           {PROCESS_STEPS.map((step, idx) => (
             <div
               key={step.step}

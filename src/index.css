@@ -123,17 +123,17 @@ h1, h2, h3, h4 {
   text-shadow: 0 0 24px rgba(255, 16, 83, 0.6);
 }
 
-/* Fluid Hero Headline Typography */
+/* Fluid Hero Headline Typography — Scaled for 1440px Desktop Reference and Mobile */
 .hero-headline {
-  font-size: clamp(2.25rem, 7.5vw, 6.25rem);
-  line-height: 0.98;
+  font-size: clamp(2.15rem, 4.8vw, 4.25rem);
+  line-height: 1.03;
   letter-spacing: -0.03em;
 }
 
-/* Section Headline Fluid Typography */
+/* Section Headline Fluid Typography — Authority without excess vertical height */
 .section-headline {
-  font-size: clamp(1.85rem, 5vw, 4rem);
-  line-height: 1.05;
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1.1;
   letter-spacing: -0.025em;
 }
 

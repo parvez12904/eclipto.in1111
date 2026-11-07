@@ -38,21 +38,21 @@ export const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
+    <section id="about" className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10">
       {/* Background radial gradient glow */}
       <div
         className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#E6004C]/10 blur-[150px] pointer-events-none"
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Section Header (STEP 4) */}
-        <div className="max-w-3xl mb-16 md:mb-20">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-5">
+        <div className="max-w-3xl mb-10 sm:mb-12">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4 sm:mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C]" />
-            <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
-              02 / THE ECLIPTO APPROACH
+            <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
+              04 / THE ECLIPTO APPROACH
             </span>
           </div>
 
@@ -63,26 +63,26 @@ export const AboutSection: React.FC = () => {
             </span>
           </h2>
 
-          <p className="mt-5 text-white/75 font-body text-base sm:text-lg leading-relaxed max-w-2xl">
+          <p className="mt-4 sm:mt-5 text-white/75 font-body text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl">
             We design and engineer digital instruments that solve complex problems
             with brutal efficiency while eliciting deep emotional delight.
           </p>
         </div>
 
         {/* 4 Key Metrics Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-12 sm:mb-16">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="p-5 sm:p-7 rounded-2xl glass-panel border border-white/10 hover:border-[#E6004C]/50 transition-all duration-300"
+              className="p-4 sm:p-6 rounded-2xl glass-panel border border-white/10 hover:border-[#E6004C]/50 transition-all duration-300"
             >
-              <div className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight text-glow-red mb-2">
+              <div className="font-display font-black text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight text-glow-red mb-1.5 sm:mb-2">
                 {stat.value}
               </div>
-              <div className="font-tech text-xs font-bold text-white/80 tracking-wider mb-1">
+              <div className="font-tech text-[10px] sm:text-xs font-bold text-white/80 tracking-wider mb-1">
                 {stat.label}
               </div>
-              <div className="text-[11px] font-tech text-white/40">
+              <div className="text-[10px] sm:text-[11px] font-tech text-white/40">
                 {stat.sub}
               </div>
             </div>
@@ -90,26 +90,26 @@ export const AboutSection: React.FC = () => {
         </div>
 
         {/* Core Values Grid */}
-        <div className="mb-24">
-          <div className="text-xs font-tech uppercase tracking-widest text-[#E6004C] font-semibold mb-6">
+        <div className="mb-14 sm:mb-18">
+          <div className="text-xs font-tech uppercase tracking-widest text-[#E6004C] font-semibold mb-5 sm:mb-6">
             OUR OPERATING PRINCIPLES
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             {values.map((val) => (
               <div
                 key={val.num}
-                className="p-7 rounded-2xl glass-panel border border-white/10 hover:border-[#E6004C]/50 hover:bg-white/[0.04] transition-all duration-300 group flex flex-col justify-between"
+                className="p-5 sm:p-6 rounded-2xl glass-panel border border-white/10 hover:border-[#E6004C]/50 hover:bg-white/[0.04] transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-[#E6004C]/40 group-hover:scale-105 transition-all">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-[#E6004C]/40 group-hover:scale-105 transition-all">
                       {val.icon}
                     </div>
                     <span className="font-tech text-xs text-white/30 font-bold">
                       {val.num}
                     </span>
                   </div>
-                  <h3 className="font-display text-lg font-bold text-white tracking-tight mb-2">
+                  <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-tight mb-2">
                     {val.title}
                   </h3>
                   <p className="font-body text-xs sm:text-sm text-white/65 leading-relaxed font-normal">
@@ -122,7 +122,7 @@ export const AboutSection: React.FC = () => {
         </div>
 
         {/* Client Recognition & Quotes */}
-        <div className="pt-16 border-t border-white/10">
+        <div className="pt-10 sm:pt-14 border-t border-white/10">
           <div className="flex items-center justify-between mb-10">
             <div>
               <span className="text-xs font-tech uppercase tracking-widest text-[#FF1053] font-bold">

@@ -260,7 +260,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
   return (
     <section
       id="pricing"
-      className="relative py-16 sm:py-20 md:py-24 bg-[#080104] z-10 border-t border-white/10"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10"
       aria-label="Website Development Pricing Packages"
     >
       {/* Background radial gradient glow */}
@@ -269,13 +269,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
+        <div className="max-w-3xl mb-10 sm:mb-12">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C] animate-pulse" />
-            <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
-              04 / TRANSPARENT PRICING
+            <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
+              06 / TRANSPARENT PRICING
             </span>
           </div>
 
@@ -286,19 +286,19 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
             </span>
           </h2>
 
-          <p className="mt-4 text-white/75 font-body text-sm sm:text-base leading-relaxed max-w-2xl">
+          <p className="mt-3 sm:mt-4 text-white/75 font-body text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl">
             Transparent starting packages crafted for every stage of your digital journey.
             Zero hidden costs, rigorous production quality, and direct developer communication.
           </p>
         </div>
 
         {/* 3 Pricing Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch mb-12 sm:mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch mb-10 sm:mb-12">
           {PACKAGES.map((pkg) => {
             return (
               <div
                 key={pkg.id}
-                className={`relative rounded-3xl glass-panel p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ${
+                className={`relative rounded-3xl glass-panel p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ${
                   pkg.isPopular
                     ? 'border-[#FF1053] bg-white/[0.06] shadow-[0_15px_50px_rgba(230,0,76,0.3)] lg:-translate-y-2'
                     : 'border-white/10 hover:border-white/25 hover:bg-white/[0.03] hover:-translate-y-1'
@@ -314,7 +314,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
 
                 <div>
                   {/* Visual Emblem Graphic */}
-                  <div className="mb-5 overflow-hidden">
+                  <div className="mb-4 overflow-hidden">
                     {getPackageEmblem(pkg.id)}
                   </div>
 
@@ -324,7 +324,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
                       <span className="font-tech text-[10px] text-[#FF1053] uppercase tracking-widest font-bold block mb-0.5">
                         {pkg.tierNumber} • {pkg.tierSubtitle}
                       </span>
-                      <h3 className="font-display text-2xl font-black text-white tracking-tight">
+                      <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tight">
                         {pkg.name}
                       </h3>
                     </div>
@@ -336,11 +336,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
                       STARTING FROM
                     </span>
                     <div className="flex items-baseline space-x-1">
-                      <span className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight text-glow-pink">
+                      <span className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight text-glow-pink">
                         {pkg.startingPrice}
                       </span>
                     </div>
-                    <span className="text-xs font-mono text-white/60 mt-1 block">
+                    <span className="text-[11px] sm:text-xs font-mono text-white/60 mt-1 block">
                       {pkg.priceNote}
                     </span>
                   </div>
