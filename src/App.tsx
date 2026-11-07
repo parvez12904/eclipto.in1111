@@ -12,7 +12,7 @@ import { ProcessSection } from './components/ProcessSection';
 import { InsightsSection } from './components/InsightsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { FloatingInquire } from './components/FloatingInquire';
 import { AdminPortal } from './admin/AdminPortal';
 import { X } from 'lucide-react';
 
@@ -132,8 +132,8 @@ export function App() {
       {/* 12. Global Footer */}
       <Footer onNavigate={scrollToSection} onOpenAdmin={navigateToAdmin} />
 
-      {/* 13. Floating WhatsApp Button */}
-      <FloatingWhatsApp />
+      {/* 13. Floating Inquire Button */}
+      <FloatingInquire onNavigate={scrollToSection} />
 
       {/* Agency Showreel Modal */}
       {isVideoModalOpen && (
