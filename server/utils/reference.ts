@@ -1,5 +1,3 @@
-import { customAlphabet } from 'nanoid';
-
 // Generates reference codes like EC-2026-A8F2
 export function generateEnquiryNumber(): string {
   const year = new Date().getFullYear();

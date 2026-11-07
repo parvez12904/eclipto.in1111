@@ -38,7 +38,7 @@ export const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="relative py-28 md:py-36 bg-[#080104] z-10 border-t border-white/10">
+    <section id="about" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
       {/* Background radial gradient glow */}
       <div
         className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#E6004C]/10 blur-[150px] pointer-events-none"
@@ -70,11 +70,11 @@ export const AboutSection: React.FC = () => {
         </div>
 
         {/* 4 Key Metrics Bar */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-20">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="p-6 sm:p-7 rounded-2xl glass-panel border border-white/10 hover:border-[#E6004C]/50 transition-all duration-300"
+              className="p-5 sm:p-7 rounded-2xl glass-panel border border-white/10 hover:border-[#E6004C]/50 transition-all duration-300"
             >
               <div className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight text-glow-red mb-2">
                 {stat.value}

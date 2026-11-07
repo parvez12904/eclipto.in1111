@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -7,12 +7,33 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum AdminRole {
+  SUPERADMIN
+  ADMIN
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL_SENT
+  CONVERTED
+  CLOSED
+}
+
+enum EnquiryPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
 model AdminUser {
   id           String            @id @default(cuid())
   email        String            @unique
   name         String?
   passwordHash String
-  role         String            @default("ADMIN") // SUPERADMIN, ADMIN
+  role         AdminRole         @default(ADMIN)
   isActive     Boolean           @default(true)
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
@@ -30,11 +51,11 @@ model Enquiry {
   companyName   String?
   service       String
   budgetRange   String?
-  message       String
-  source        String            @default("website") // website, hero, service_page
-  status        String            @default("NEW") // NEW, CONTACTED, QUALIFIED, PROPOSAL_SENT, CONVERTED, CLOSED
-  priority      String            @default("NORMAL") // LOW, NORMAL, HIGH, URGENT
-  internalNotes String?
+  message       String            @db.Text
+  source        String            @default("website")
+  status        EnquiryStatus     @default(NEW)
+  priority      EnquiryPriority   @default(NORMAL)
+  internalNotes String?           @db.Text
   assignedTo    String?
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
@@ -54,7 +75,7 @@ model EnquiryActivity {
   adminUserId String?
   adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
   action      String     // STATUS_CHANGE, PRIORITY_CHANGE, NOTE_ADDED, ASSIGNED
-  description String
+  description String     @db.Text
   createdAt   DateTime   @default(now())
 
   @@index([enquiryId])

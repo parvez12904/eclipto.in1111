@@ -1,3 +1,17 @@
+export interface ClientProject {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  websiteUrl: string;
+  displayUrl: string;
+  accentColor: string;
+  gradient: string;
+  keyHighlights: string[];
+  clientSector: string;
+  year: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -38,6 +52,51 @@ export interface Insight {
   excerpt: string;
   content: string;
 }
+
+export const CLIENT_PROJECTS: ClientProject[] = [
+  {
+    id: 'devine-homz',
+    name: 'Devine Homz',
+    category: 'LUXURY REAL ESTATE & LIVING',
+    description:
+      'Bespoke architectural living spaces and prime residential developments presented through an elegant, high-retention digital showcase.',
+    websiteUrl: 'https://www.devinehomz.com',
+    displayUrl: 'devinehomz.com',
+    accentColor: '#FF1053',
+    gradient: 'from-[#E6004C]/35 via-[#25030e] to-[#080104]',
+    keyHighlights: ['Responsive Architecture', 'Interactive Floor Plans', 'Speed Optimized'],
+    clientSector: 'Real Estate & Living',
+    year: '2025 - 2026',
+  },
+  {
+    id: 'a-tiger-global',
+    name: 'A Tiger Global',
+    category: 'GLOBAL SOURCING & LOGISTICS',
+    description:
+      'International trading, global logistics, and supply chain infrastructure engineered with enterprise-grade responsiveness and authority.',
+    websiteUrl: 'https://atigerglobal.com',
+    displayUrl: 'atigerglobal.com',
+    accentColor: '#E6004C',
+    gradient: 'from-[#FF1053]/30 via-[#1e020a] to-[#080104]',
+    keyHighlights: ['Multi-Region Enterprise', 'Supply Chain Visualizer', 'Secure Inquiry Tunnel'],
+    clientSector: 'Global Trading & Logistics',
+    year: '2025 - 2026',
+  },
+  {
+    id: 'kraftor',
+    name: 'Kraftor',
+    category: 'ARCHITECTURAL HARDWARE & CRAFT',
+    description:
+      'Precision architectural hardware, luxury interior fittings, and bespoke craftsmanship highlighted via a minimalist high-contrast digital catalog.',
+    websiteUrl: 'https://kraftor.in/',
+    displayUrl: 'kraftor.in',
+    accentColor: '#FF1053',
+    gradient: 'from-[#E6004C]/30 via-[#1a0108] to-[#080104]',
+    keyHighlights: ['Product Catalog System', 'Tactile Motion Aesthetics', 'B2B Procurement Flow'],
+    clientSector: 'Architectural Hardware',
+    year: '2025 - 2026',
+  },
+];
 
 export const PROJECTS: Project[] = [
   {

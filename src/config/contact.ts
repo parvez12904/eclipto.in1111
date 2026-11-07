@@ -19,6 +19,11 @@ export interface ContactConfig {
     defaultMessage: string;
     chatLink: string;
   };
+  instagram: {
+    handle: string; // 'eclipto_.in'
+    display: string; // '@eclipto_.in'
+    profileUrl: string; // 'https://www.instagram.com/eclipto_.in/'
+  };
 }
 
 const EMAIL_ADDRESS = 'eclipto.in@gmail.com';
@@ -67,6 +72,11 @@ export const CONTACT_CONFIG: ContactConfig = {
     chatLink: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
       DEFAULT_WHATSAPP_MESSAGE
     )}`,
+  },
+  instagram: {
+    handle: 'eclipto_.in',
+    display: '@eclipto_.in',
+    profileUrl: 'https://www.instagram.com/eclipto_.in/',
   },
 };
 

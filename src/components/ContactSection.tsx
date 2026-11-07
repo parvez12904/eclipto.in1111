@@ -112,7 +112,7 @@ export const ContactSection: React.FC = () => {
   });
 
   return (
-    <section id="contact" className="relative py-28 md:py-36 bg-[#080104] z-10 border-t border-white/10">
+    <section id="contact" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
       {/* Background radial glow */}
       <div
         className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[650px] h-[650px] rounded-full bg-[#E6004C]/15 blur-[160px] pointer-events-none"
@@ -278,7 +278,7 @@ export const ContactSection: React.FC = () => {
           
           {/* LEFT: Project Scope Form & Live Dispatch (7 Cols) */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl glass-panel border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
+            <div className="p-5 sm:p-8 md:p-10 rounded-3xl glass-panel border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
               
               {showDispatchOptions ? (
                 <div className="py-6 space-y-6 animate-in fade-in zoom-in-95 duration-200">
@@ -357,7 +357,7 @@ export const ContactSection: React.FC = () => {
                     </span>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <a
-                        href={`https://wa.me/917720835581?text=${encodeURIComponent(
+                        href={`https://wa.me/${CONTACT_CONFIG.whatsapp.number}?text=${encodeURIComponent(
                           `Hi Parvez, I have submitted enquiry ref ${submittedReference || 'EC-2026'} for ${selectedScope} (${name}${company ? ' - ' + company : ''}). Looking forward to discussing!`
                         )}`}
                         target="_blank"
@@ -441,7 +441,7 @@ export const ContactSection: React.FC = () => {
                             type="button"
                             key={budget}
                             onClick={() => setSelectedBudget(budget)}
-                            className={`py-2 px-2.5 rounded-xl text-xs font-mono text-center tracking-wider transition-all duration-200 ${
+                            className={`py-2 px-1.5 sm:px-2.5 rounded-xl text-[11px] sm:text-xs font-mono text-center tracking-wider transition-all duration-200 ${
                               isSelected
                                 ? 'bg-white text-black font-bold shadow-[0_0_20px_rgba(255,255,255,0.4)]'
                                 : 'glass-panel border border-white/10 text-white/70 hover:text-white hover:border-white/25'

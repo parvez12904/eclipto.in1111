@@ -24,11 +24,11 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navItems = [
     { label: 'HOME', id: 'hero' },
+    { label: 'REELS', id: 'reels' },
     { label: 'WORK', id: 'work' },
-    { label: 'ABOUT', id: 'about' },
     { label: 'SERVICES', id: 'services' },
-    { label: 'PROCESS', id: 'process' },
-    { label: 'INSIGHTS', id: 'insights' },
+    { label: 'PRICING', id: 'pricing' },
+    { label: 'ABOUT', id: 'about' },
     { label: 'CONTACT', id: 'contact' },
   ];
 
@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* CENTER: Navigation Links (Desktop) */}
         <nav
-          className="hidden md:flex items-center space-x-8 lg:space-x-10"
+          className="hidden md:flex items-center space-x-5 lg:space-x-8"
           aria-label="Main Navigation"
         >
           {navItems.map((item) => {

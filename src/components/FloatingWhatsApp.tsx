@@ -3,13 +3,20 @@ import { CONTACT_CONFIG } from '../config/contact';
 
 export const FloatingWhatsApp: React.FC = () => {
   return (
-    <aside aria-label="WhatsApp quick contact" className="fixed bottom-6 right-6 z-40">
+    <aside
+      aria-label="WhatsApp quick contact"
+      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 pointer-events-auto"
+      style={{
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        paddingRight: 'env(safe-area-inset-right, 0px)',
+      }}
+    >
       <a
         href={CONTACT_CONFIG.whatsapp.chatLink}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat with Parvez Khan on WhatsApp (+91 77208 35581)"
-        className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-[0_4px_25px_rgba(37,211,102,0.45)] hover:shadow-[0_4px_35px_rgba(37,211,102,0.7)] hover:scale-110 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#25D366] focus:ring-offset-[#080104]"
+        aria-label={`Chat with ${CONTACT_CONFIG.founder} on WhatsApp (${CONTACT_CONFIG.phone.display})`}
+        className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white shadow-[0_4px_25px_rgba(37,211,102,0.45)] hover:shadow-[0_4px_35px_rgba(37,211,102,0.7)] hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#25D366] focus:ring-offset-[#080104]"
       >
         {/* Subtle pulsing background ring */}
         <span
@@ -21,7 +28,7 @@ export const FloatingWhatsApp: React.FC = () => {
         {/* Official WhatsApp SVG Icon */}
         <svg
           viewBox="0 0 32 32"
-          className="w-7 h-7 fill-current transition-transform duration-300 group-hover:rotate-6"
+          className="w-6 h-6 sm:w-7 sm:h-7 fill-current transition-transform duration-300 group-hover:rotate-6"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
@@ -31,7 +38,7 @@ export const FloatingWhatsApp: React.FC = () => {
         {/* Desktop Tooltip Badge */}
         <span className="hidden lg:group-hover:flex absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-[#080104]/90 backdrop-blur-md border border-white/15 text-[11px] font-mono text-white whitespace-nowrap shadow-xl pointer-events-none items-center space-x-1.5">
           <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-          <span>Chat with Parvez on WhatsApp</span>
+          <span>Chat with {CONTACT_CONFIG.founder} on WhatsApp</span>
         </span>
       </a>
     </aside>

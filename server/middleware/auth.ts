@@ -72,7 +72,7 @@ export async function requireAdminAuth(
     };
 
     next();
-  } catch (error) {
+  } catch {
     res.status(401).json({
       ok: false,
       message: 'Invalid or expired authorization token.',

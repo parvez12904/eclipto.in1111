@@ -161,18 +161,26 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
               INDEX
             </div>
             <ul className="space-y-2.5 text-xs font-mono">
-              {['hero', 'work', 'about', 'services', 'process', 'insights', 'contact'].map(
-                (sec) => (
-                  <li key={sec}>
-                    <button
-                      onClick={() => onNavigate(sec)}
-                      className="text-white/60 hover:text-white transition-colors uppercase text-left"
-                    >
-                      {sec === 'hero' ? 'HOME' : sec}
-                    </button>
-                  </li>
-                )
-              )}
+              {[
+                { id: 'hero', label: 'HOME' },
+                { id: 'reels', label: 'REELS' },
+                { id: 'work', label: 'PORTFOLIO' },
+                { id: 'services', label: 'SERVICES' },
+                { id: 'pricing', label: 'PRICING' },
+                { id: 'about', label: 'ABOUT' },
+                { id: 'process', label: 'PROCESS' },
+                { id: 'insights', label: 'INSIGHTS' },
+                { id: 'contact', label: 'CONTACT' },
+              ].map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => onNavigate(item.id)}
+                    className="text-white/60 hover:text-white transition-colors uppercase text-left"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -196,6 +204,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
               CONNECT
             </div>
             <ul className="space-y-2.5 text-xs font-mono text-white/60">
+              <li>
+                <a
+                  href={CONTACT_CONFIG.instagram.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#FF1053] transition-colors flex items-center space-x-1"
+                >
+                  <span>Instagram</span>
+                  <ArrowUpRight className="w-3 h-3 text-[#FF1053]" />
+                </a>
+              </li>
               <li>
                 <a
                   href={CONTACT_CONFIG.whatsapp.chatLink}
@@ -232,12 +251,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-white/40 gap-4 text-center sm:text-left">
         <div>
-          © {new Date().getFullYear()} {CONTACT_CONFIG.businessName}. Founded by {CONTACT_CONFIG.founder}. All rights reserved.
+          © 2026 {CONTACT_CONFIG.businessName}. Founded by {CONTACT_CONFIG.founder}. All rights reserved.
         </div>
 
-        <div className="flex items-center space-x-6">
+        <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 sm:gap-6">
           <a
             href={CONTACT_CONFIG.email.mailtoLink}
             className="hover:text-white transition-colors"

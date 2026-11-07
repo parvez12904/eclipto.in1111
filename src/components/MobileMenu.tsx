@@ -34,9 +34,11 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 
   const navLinks = [
     { label: 'HOME', href: 'hero' },
+    { label: 'REELS', href: 'reels' },
     { label: 'WORK', href: 'work' },
-    { label: 'ABOUT', href: 'about' },
     { label: 'SERVICES', href: 'services' },
+    { label: 'PRICING', href: 'pricing' },
+    { label: 'ABOUT', href: 'about' },
     { label: 'PROCESS', href: 'process' },
     { label: 'INSIGHTS', href: 'insights' },
     { label: 'CONTACT', href: 'contact' },
@@ -90,7 +92,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
       </div>
 
       {/* Main Nav Items with Large Typography */}
-      <nav className="my-auto py-6 flex flex-col space-y-3 flex-shrink-0">
+      <nav className="my-auto py-3 sm:py-6 flex flex-col space-y-1 sm:space-y-2.5 flex-shrink-0">
         {navLinks.map((link, idx) => {
           const isActive = activeSection === link.href;
           return (
@@ -100,14 +102,14 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 onNavigate(link.href);
                 onClose();
               }}
-              className="group flex items-center justify-between text-left py-2 border-b border-white/5 transition-all"
+              className="group flex items-center justify-between text-left py-1.5 sm:py-2 border-b border-white/5 transition-all"
             >
-              <div className="flex items-baseline space-x-4">
-                <span className="text-xs font-mono text-[#E6004C] opacity-70">
+              <div className="flex items-baseline space-x-3.5">
+                <span className="text-[11px] sm:text-xs font-mono text-[#E6004C] opacity-70">
                   0{idx + 1}
                 </span>
                 <span
-                  className={`font-heading text-2xl sm:text-3xl font-bold tracking-wider transition-colors ${
+                  className={`font-heading text-xl sm:text-2xl md:text-3xl font-bold tracking-wider transition-colors ${
                     isActive
                       ? 'text-[#FF1053]'
                       : 'text-white/80 group-hover:text-white group-hover:translate-x-1'

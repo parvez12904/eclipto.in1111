@@ -8,6 +8,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import enquiriesRouter from './routes/enquiries';
 import adminRouter from './routes/admin';
+import instagramRouter from './routes/instagram';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -83,8 +84,11 @@ app.use('/api/enquiries', enquirySubmitLimiter, enquiriesRouter);
 // Admin routes (Auth, Management, Analytics)
 app.use('/api/admin', adminRouter);
 
-// 404 handler for API routes
-app.all(/^\/api(\/.*)?$/, (_req: Request, res: Response) => {
+// Instagram / Reels showcase route
+app.use('/api/instagram', instagramRouter);
+
+// 404 handler for unmatched API routes
+app.use('/api', (_req: Request, res: Response) => {
   res.status(404).json({
     ok: false,
     message: 'API endpoint not found or unsupported method.',
@@ -96,8 +100,8 @@ if (process.env.NODE_ENV === 'production') {
   const distPath = path.resolve(__dirname, '../dist');
   app.use(express.static(distPath));
 
-  // SPA fallback for frontend client-side routing
-  app.get('*', (_req: Request, res: Response) => {
+  // SPA fallback for frontend client-side routing (Express 5 compatible)
+  app.use((_req: Request, res: Response) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
@@ -113,10 +117,10 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 
 // Start listening
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
+  app.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`===============================================`);
     console.log(`  ECLIPTØ BACKEND API SERVER RUNNING`);
-    console.log(`  Port:        http://localhost:${PORT}`);
+    console.log(`  Port:        http://0.0.0.0:${PORT}`);
     console.log(`  Health:      http://localhost:${PORT}/api/health`);
     console.log(`  Public API:  POST http://localhost:${PORT}/api/enquiries`);
     console.log(`  Admin Auth:  POST http://localhost:${PORT}/api/admin/auth/login`);

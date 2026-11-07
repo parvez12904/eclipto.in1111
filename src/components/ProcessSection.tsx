@@ -4,7 +4,7 @@ import { CheckCircle2, Terminal } from 'lucide-react';
 
 export const ProcessSection: React.FC = () => {
   return (
-    <section id="process" className="relative py-28 md:py-36 bg-[#080104] z-10 border-t border-white/10">
+    <section id="process" className="relative py-16 sm:py-24 md:py-36 bg-[#080104] z-10 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         
         {/* Section Header (STEP 4) */}
