@@ -34,11 +34,10 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
           ? 'py-2.5 sm:py-3 bg-[#080104]/85 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
           : 'py-3.5 sm:py-4.5 lg:py-5 bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
         {/* LEFT: ECLIPTO Brand Mark & Name */}
