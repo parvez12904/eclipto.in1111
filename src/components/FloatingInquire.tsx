@@ -27,9 +27,10 @@ export const FloatingInquire: React.FC<FloatingInquireProps> = ({ onNavigate }) 
       }}
     >
       <button
+        type="button"
         onClick={handleClick}
         aria-label="Inquire about a project with Eclipto"
-        className="group relative flex items-center space-x-2.5 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white font-heading font-black text-xs sm:text-[13px] tracking-[0.16em] uppercase shadow-[0_4px_25px_rgba(230,0,76,0.45)] hover:shadow-[0_4px_35px_rgba(230,0,76,0.75)] hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF1053] focus:ring-offset-[#080104]"
+        className="group relative flex items-center space-x-2 px-3.5 py-2 sm:px-4.5 sm:py-2.5 rounded-full bg-gradient-to-r from-[#E6004C] to-[#FF1053] border border-white/20 text-white font-heading font-black text-xs sm:text-[13px] tracking-[0.16em] uppercase shadow-[0_4px_22px_rgba(230,0,76,0.45)] hover:shadow-[0_4px_32px_rgba(230,0,76,0.7)] hover:scale-[1.03] active:scale-[0.96] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF1053] focus:ring-offset-[#080104]"
       >
         {/* Subtle pulsing ambient glow ring */}
         <span
@@ -38,19 +39,19 @@ export const FloatingInquire: React.FC<FloatingInquireProps> = ({ onNavigate }) 
           aria-hidden="true"
         />
 
-        {/* Live Indicator Dot */}
-        <span className="relative flex h-2 w-2">
+        {/* Live Status Indicator Dot */}
+        <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-white shadow-[0_0_8px_white]" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-white shadow-[0_0_8px_white]" />
         </span>
 
         {/* Action Icon */}
-        <MessageSquare className="w-4 h-4 text-white transition-transform duration-300 group-hover:rotate-12" />
+        <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white transition-transform duration-300 group-hover:rotate-6" />
 
-        {/* Button Label */}
+        {/* Button Label: Clear & High-Contrast */}
         <span className="font-extrabold tracking-[0.18em]">INQUIRE</span>
 
-        {/* Corner Indicator Arrow */}
+        {/* Navigation Indicator Arrow */}
         <ArrowUpRight className="w-3.5 h-3.5 text-white/90 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 
         {/* Desktop Hover Tooltip */}
