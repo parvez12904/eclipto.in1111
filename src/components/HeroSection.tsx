@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUpRight, Award, Zap } from 'lucide-react';
 import { ParticleCanvas } from './ParticleCanvas';
+import { fetchWebsiteContent, DEFAULT_HERO_CONTENT } from '../services/content';
 
 interface HeroSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -12,7 +13,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [heroContent, setHeroContent] = useState(DEFAULT_HERO_CONTENT);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Load dynamic content from database if available
+  useEffect(() => {
+    let isMounted = true;
+    fetchWebsiteContent().then((content) => {
+      if (isMounted && content.hero) {
+        setHeroContent({
+          mainHeading: content.hero.main_heading || DEFAULT_HERO_CONTENT.mainHeading,
+          highlightedHeading: content.hero.highlighted_heading || DEFAULT_HERO_CONTENT.highlightedHeading,
+          description: content.hero.description || DEFAULT_HERO_CONTENT.description,
+          primaryCtaText: content.hero.primary_cta_text || DEFAULT_HERO_CONTENT.primaryCtaText,
+          secondaryCtaText: content.hero.secondary_cta_text || DEFAULT_HERO_CONTENT.secondaryCtaText,
+        });
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Ensure video plays programmatically if autoplay was throttled
   useEffect(() => {
@@ -114,17 +135,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Main Headline: Bold Sans + Elegant Italic Serif with Text Reveal */}
           <h1 className="hero-headline mb-5 sm:mb-6 text-balance drop-shadow-[0_12px_40px_rgba(0,0,0,0.95)] animate-headline-reveal">
             <span className="block font-display font-black text-white uppercase tracking-[-0.035em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
-              WE BUILD
+              {heroContent.mainHeading}
             </span>
             <span className="block font-editorial font-normal tracking-[-0.015em] bg-gradient-to-r from-[#FF3366] via-[#FF1053] to-[#FF6B8B] bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(255,16,83,0.55)] pb-1">
-              WHAT'S NEXT.
+              {heroContent.highlightedHeading}
             </span>
           </h1>
 
           {/* Supporting Text */}
           <p className="max-w-xl text-sm sm:text-base md:text-lg text-white/90 font-body font-normal leading-relaxed mb-8 sm:mb-10 tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-            We create powerful websites, intelligent software, and AI-powered
-            experiences that help businesses move forward.
+            {heroContent.description}
           </p>
 
           {/* Buttons: LET'S BUILD SOMETHING & EXPLORE OUR WORK */}
@@ -133,7 +153,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               onClick={() => onNavigate('contact')}
               className="group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-display font-bold text-xs sm:text-sm tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#E6004C] to-[#FF1053] shadow-[0_0_35px_rgba(230,0,76,0.45)] hover:shadow-[0_0_50px_rgba(230,0,76,0.7)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center space-x-2.5 w-full sm:w-auto"
             >
-              <span>LET'S BUILD SOMETHING</span>
+              <span>{heroContent.primaryCtaText}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </button>
 
@@ -141,7 +161,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               onClick={() => onNavigate('work')}
               className="px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl font-display font-semibold text-xs sm:text-sm tracking-[0.16em] uppercase text-white/90 glass-panel border border-white/20 hover:border-white/40 hover:bg-white/[0.08] active:scale-[0.98] transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto"
             >
-              <span>EXPLORE OUR WORK</span>
+              <span>{heroContent.secondaryCtaText}</span>
             </button>
           </div>
 

@@ -81,3 +81,35 @@ model EnquiryActivity {
   @@index([enquiryId])
   @@map("enquiry_activities")
 }
+
+model WebsiteContent {
+  id           String   @id @default(cuid())
+  sectionName  String   // e.g. "hero", "services", "pricing"
+  contentKey   String   // e.g. "main_heading", "highlighted_heading", "description", "services_list", "packages_list"
+  contentValue String   @db.Text
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+
+  @@unique([sectionName, contentKey])
+  @@map("website_content")
+}
+
+model Reel {
+  id           String   @id @default(cuid())
+  title        String
+  caption      String?  @db.Text
+  mediaType    String   @default("VIDEO") // "VIDEO" or "IMAGE"
+  videoUrl     String   @db.Text
+  thumbnailUrl String?  @db.Text
+  instagramUrl String?  @db.Text
+  displayOrder Int      @default(0)
+  isPublished  Boolean  @default(true)
+  views        String?  @default("24.5K")
+  likes        String?  @default("1.8K")
+  audioTrack   String?  @default("Eclipto Sound Lab")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isPublished, displayOrder])
+  @@map("reels")
+}

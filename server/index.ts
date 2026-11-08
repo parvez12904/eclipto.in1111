@@ -9,6 +9,8 @@ import { fileURLToPath } from 'url';
 import enquiriesRouter from './routes/enquiries';
 import adminRouter from './routes/admin';
 import instagramRouter from './routes/instagram';
+import { reelsPublicRouter, reelsAdminRouter } from './routes/reels';
+import { contentPublicRouter, contentAdminRouter } from './routes/content';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -81,10 +83,18 @@ app.get('/api/health', (_req: Request, res: Response) => {
 // Public enquiry endpoint with rate limiting
 app.use('/api/enquiries', enquirySubmitLimiter, enquiriesRouter);
 
-// Admin routes (Auth, Management, Analytics)
+// Public dynamic content & reels endpoints
+app.use('/api/reels', reelsPublicRouter);
+app.use('/api/content', contentPublicRouter);
+
+// Admin content & reels management endpoints
+app.use('/api/admin/reels', reelsAdminRouter);
+app.use('/api/admin/content', contentAdminRouter);
+
+// Admin routes (Auth, Enquiries, Analytics)
 app.use('/api/admin', adminRouter);
 
-// Instagram / Reels showcase route
+// Instagram / Reels fallback showcase route
 app.use('/api/instagram', instagramRouter);
 
 // 404 handler for unmatched API routes

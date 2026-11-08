@@ -103,7 +103,7 @@ export const FALLBACK_REELS_CLIENT: ReelItem[] = [
 ];
 
 /**
- * Fetches latest reels from the backend Instagram proxy endpoint
+ * Fetches latest reels from the dynamic database endpoint (/api/reels) or Instagram proxy.
  * Falls back gracefully to curated client data if backend is offline or unconfigured.
  */
 export async function fetchInstagramReels(): Promise<InstagramResponse> {
@@ -111,7 +111,8 @@ export async function fetchInstagramReels(): Promise<InstagramResponse> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 4000);
 
-    const res = await fetch('/api/instagram/reels', {
+    // Primary: Dynamic managed reels from Admin database
+    const res = await fetch('/api/reels', {
       signal: controller.signal,
       headers: {
         Accept: 'application/json',
@@ -123,13 +124,20 @@ export async function fetchInstagramReels(): Promise<InstagramResponse> {
     if (res.ok) {
       const data = (await res.json()) as InstagramResponse;
       if (data && Array.isArray(data.reels) && data.reels.length > 0) {
-        return data;
+        return {
+          ok: true,
+          source: data.source || 'database',
+          account: '@eclipto_.in',
+          profileUrl: 'https://www.instagram.com/eclipto_.in/',
+          reels: data.reels,
+        };
       }
     }
   } catch {
     // Graceful fallback on network or parse failure
   }
 
+  // Secondary fallback: static curated client list
   return {
     ok: true,
     source: 'fallback',

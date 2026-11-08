@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Check,
   ArrowUpRight,
@@ -8,6 +8,7 @@ import {
   Phone,
 } from 'lucide-react';
 import { CONTACT_CONFIG } from '../config/contact';
+import { fetchWebsiteContent } from '../services/content';
 
 interface PricingPackage {
   id: string;
@@ -244,6 +245,35 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
   onNavigate,
   onSelectPackage,
 }) => {
+  const [packages, setPackages] = useState<PricingPackage[]>(PACKAGES);
+
+  // Sync dynamic packages from database if available
+  useEffect(() => {
+    let isMounted = true;
+    fetchWebsiteContent().then((content) => {
+      if (isMounted && content.pricing?.packages_list) {
+        try {
+          const parsed = JSON.parse(content.pricing.packages_list);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setPackages(
+              parsed.map((p) => ({
+                ...p,
+                whatsappMessage:
+                  p.whatsappMessage ||
+                  `Hi Parvez, I am interested in the ${p.name} Package (${p.startingPrice}) for my website. Please share more details.`,
+              }))
+            );
+          }
+        } catch {
+          // Keep defaults
+        }
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const getWhatsAppLink = (message: string) => {
     return `https://wa.me/${CONTACT_CONFIG.whatsapp.number}?text=${encodeURIComponent(message)}`;
   };
@@ -317,7 +347,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
 
         {/* 3 Pricing Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch mb-12 sm:mb-14">
-          {PACKAGES.map((pkg) => {
+          {packages.map((pkg) => {
             return (
               <div
                 key={pkg.id}

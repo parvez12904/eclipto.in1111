@@ -18,8 +18,16 @@ import {
   ChevronRight,
   TrendingUp,
   Inbox,
+  LayoutDashboard,
+  Film,
+  Sparkles,
+  Settings,
 } from 'lucide-react';
 import type { AdminUser, DashboardStats, Enquiry } from './types';
+import { ReelsManagement } from './components/ReelsManagement';
+import { WebContentManagement } from './components/WebContentManagement';
+import { PricingManagement } from './components/PricingManagement';
+import { SettingsManagement } from './components/SettingsManagement';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -34,6 +42,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onLogout,
   onBackToWebsite,
 }) => {
+  const [activeTab, setActiveTab] = useState<
+    'dashboard' | 'content' | 'reels' | 'pricing' | 'inquiries' | 'settings'
+  >('dashboard');
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -248,6 +259,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   };
 
+  const navTabs: {
+    id: 'dashboard' | 'content' | 'reels' | 'pricing' | 'inquiries' | 'settings';
+    label: string;
+    icon: any;
+    badge?: number;
+  }[] = [
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'content', label: 'Website Content', icon: FileText },
+    { id: 'reels', label: 'Reels & Videos', icon: Film },
+    { id: 'pricing', label: 'Pricing', icon: Sparkles },
+    { id: 'inquiries', label: 'Contact / Inquiries', icon: MessageSquare, badge: totalCount > 0 ? totalCount : undefined },
+    { id: 'settings', label: 'Settings', icon: Settings },
+  ];
+
   return (
     <div className="min-h-screen bg-[#080104] text-white flex flex-col font-sans selection:bg-[#E6004C] selection:text-white">
       {/* 1. Admin Top Navigation Bar */}
@@ -264,7 +289,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <div className="hidden sm:flex items-center space-x-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-xs font-mono text-white/60">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Database Online (SQLite/PostgreSQL Ready)</span>
+              <span>Database Online (PostgreSQL Live)</span>
             </div>
           </div>
 
@@ -294,80 +319,253 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
       </header>
 
+      {/* 2. Admin Horizontal Tab Navigation Bar */}
+      <div className="sticky top-[69px] z-30 bg-[#0c0206]/95 backdrop-blur-xl border-b border-white/10 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto flex items-center space-x-1 sm:space-x-2 overflow-x-auto py-2.5 no-scrollbar">
+          {navTabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 flex items-center space-x-2 shrink-0 ${
+                  isActive
+                    ? 'bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_15px_rgba(230,0,76,0.4)]'
+                    : 'text-white/60 hover:text-white hover:bg-white/[0.04]'
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{tab.label}</span>
+                {tab.badge !== undefined && (
+                  <span
+                    className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+                      isActive ? 'bg-black/40 text-white' : 'bg-white/10 text-white/70'
+                    }`}
+                  >
+                    {tab.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* 2. Top Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Card 1: Total Enquiries */}
-          <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
-                TOTAL ENQUIRIES
-              </span>
-              <div className="p-2.5 rounded-xl bg-[#E6004C]/15 border border-[#E6004C]/30 text-[#FF1053]">
-                <Inbox className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="font-heading font-black text-3xl sm:text-4xl text-white">
-              {stats?.totalEnquiries ?? 0}
-            </div>
-            <div className="mt-2 text-xs font-mono text-white/40">Permanent DB records</div>
-          </div>
+        {/* TAB 1: WEBSITE CONTENT */}
+        {activeTab === 'content' && <WebContentManagement token={token} />}
 
-          {/* Card 2: New Today */}
-          <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
-                NEW TODAY
-              </span>
-              <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
-                <Clock className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="font-heading font-black text-3xl sm:text-4xl text-white">
-              {stats?.newToday ?? 0}
-            </div>
-            <div className="mt-2 text-xs font-mono text-emerald-400 flex items-center space-x-1">
-              <span>● Requires fast initial contact</span>
-            </div>
-          </div>
+        {/* TAB 2: REELS & VIDEOS */}
+        {activeTab === 'reels' && <ReelsManagement token={token} />}
 
-          {/* Card 3: In Active Pipeline */}
-          <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
-                ACTIVE PIPELINE
-              </span>
-              <div className="p-2.5 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-400">
-                <TrendingUp className="w-4 h-4" />
-              </div>
-            </div>
-            <div className="font-heading font-black text-3xl sm:text-4xl text-white">
-              {(stats?.statusCounts?.QUALIFIED ?? 0) +
-                (stats?.statusCounts?.PROPOSAL_SENT ?? 0) +
-                (stats?.statusCounts?.CONTACTED ?? 0)}
-            </div>
-            <div className="mt-2 text-xs font-mono text-white/40">Qualified & Proposals</div>
-          </div>
+        {/* TAB 3: PRICING */}
+        {activeTab === 'pricing' && <PricingManagement token={token} />}
 
-          {/* Card 4: Converted / Wins */}
-          <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
-                CONVERTED CLIENTS
-              </span>
-              <div className="p-2.5 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366]">
-                <CheckCircle className="w-4 h-4" />
+        {/* TAB 4: SETTINGS */}
+        {activeTab === 'settings' && (
+          <SettingsManagement user={user} onBackToWebsite={onBackToWebsite} />
+        )}
+
+        {/* TAB 5: DASHBOARD OVERVIEW */}
+        {activeTab === 'dashboard' && (
+          <div className="space-y-8">
+            {/* Top Metric Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {/* Card 1: Total Enquiries */}
+              <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
+                    TOTAL ENQUIRIES
+                  </span>
+                  <div className="p-2.5 rounded-xl bg-[#E6004C]/15 border border-[#E6004C]/30 text-[#FF1053]">
+                    <Inbox className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="font-heading font-black text-3xl sm:text-4xl text-white">
+                  {stats?.totalEnquiries ?? totalCount}
+                </div>
+                <div className="mt-2 text-xs font-mono text-white/40">Permanent DB records</div>
+              </div>
+
+              {/* Card 2: New Today */}
+              <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
+                    NEW TODAY
+                  </span>
+                  <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="font-heading font-black text-3xl sm:text-4xl text-white">
+                  {stats?.newToday ?? 0}
+                </div>
+                <div className="mt-2 text-xs font-mono text-emerald-400 flex items-center space-x-1">
+                  <span>● Requires fast contact</span>
+                </div>
+              </div>
+
+              {/* Card 3: Active Pipeline */}
+              <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
+                    ACTIVE PIPELINE
+                  </span>
+                  <div className="p-2.5 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-400">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="font-heading font-black text-3xl sm:text-4xl text-white">
+                  {(stats?.statusCounts?.QUALIFIED ?? 0) +
+                    (stats?.statusCounts?.PROPOSAL_SENT ?? 0) +
+                    (stats?.statusCounts?.CONTACTED ?? 0)}
+                </div>
+                <div className="mt-2 text-xs font-mono text-white/40">Qualified & Proposals</div>
+              </div>
+
+              {/* Card 4: Converted */}
+              <div className="p-6 rounded-3xl glass-panel border border-white/10 bg-white/[0.02] relative overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
+                    CONVERTED CLIENTS
+                  </span>
+                  <div className="p-2.5 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366]">
+                    <CheckCircle className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="font-heading font-black text-3xl sm:text-4xl text-white">
+                  {stats?.statusCounts?.CONVERTED ?? 0}
+                </div>
+                <div className="mt-2 text-xs font-mono text-[#25D366]">
+                  Win Rate: {stats?.conversionRate ?? 0}%
+                </div>
               </div>
             </div>
-            <div className="font-heading font-black text-3xl sm:text-4xl text-white">
-              {stats?.statusCounts?.CONVERTED ?? 0}
+
+            {/* Quick Action Shortcuts Panel */}
+            <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-white/15 bg-gradient-to-r from-white/[0.03] to-transparent space-y-4">
+              <h3 className="font-heading font-black text-lg text-white">
+                Quick Content Management Shortcuts
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button
+                  onClick={() => setActiveTab('content')}
+                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#FF1053]/15 text-[#FF1053] group-hover:scale-110 transition-transform">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white">Edit Hero Content</h4>
+                    <p className="text-xs text-white/50 mt-1">Headlines & CTA buttons</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('reels')}
+                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#FF1053]/15 text-[#FF1053] group-hover:scale-110 transition-transform">
+                    <Film className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white">Reels & Videos</h4>
+                    <p className="text-xs text-white/50 mt-1">Add, reorder & publish</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('pricing')}
+                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#FF1053]/15 text-[#FF1053] group-hover:scale-110 transition-transform">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white">Pricing Packages</h4>
+                    <p className="text-xs text-white/50 mt-1">Tiers, prices & features</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('inquiries')}
+                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#FF1053]/15 text-[#FF1053] group-hover:scale-110 transition-transform">
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white">Client Inquiries</h4>
+                    <p className="text-xs text-white/50 mt-1">View & manage leads</p>
+                  </div>
+                </button>
+              </div>
             </div>
-            <div className="mt-2 text-xs font-mono text-[#25D366]">
-              Win Rate: {stats?.conversionRate ?? 0}%
+
+            {/* Recent Enquiries Preview */}
+            <div className="p-6 rounded-3xl glass-panel border border-white/15 space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <div className="flex items-center space-x-2">
+                  <MessageSquare className="w-4 h-4 text-[#FF1053]" />
+                  <h3 className="font-heading font-black text-base text-white">
+                    Recent Inquiries
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab('inquiries')}
+                  className="text-xs font-mono text-[#FF1053] hover:underline flex items-center space-x-1"
+                >
+                  <span>View All ({totalCount})</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </button>
+              </div>
+
+              {enquiries.length === 0 ? (
+                <div className="py-8 text-center text-xs font-mono text-white/50">
+                  No inquiries recorded yet.
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {enquiries.slice(0, 5).map((enq) => (
+                    <div
+                      key={enq.id}
+                      onClick={() => {
+                        setSelectedEnquiry(enq);
+                        setActiveTab('inquiries');
+                      }}
+                      className="p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-white/20 transition-all cursor-pointer flex items-center justify-between gap-3 text-xs font-mono"
+                    >
+                      <div className="flex items-center space-x-3 min-w-0">
+                        <span className="font-bold text-white truncate">{enq.fullName}</span>
+                        <span className="text-white/40 truncate hidden sm:inline">
+                          {enq.companyName || enq.email}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-2 shrink-0">
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${getStatusBadge(
+                            enq.status
+                          )}`}
+                        >
+                          {enq.status}
+                        </span>
+                        <span className="text-white/40 text-[10px]">
+                          {new Date(enq.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        )}
+
+        {/* TAB 6: CONTACT / INQUIRIES MANAGEMENT (Full CRM View) */}
+        {activeTab === 'inquiries' && (
+          <div className="space-y-6">
 
         {/* 3. Search, Filters & Actions Toolbar */}
         <div className="p-6 rounded-3xl glass-panel border border-white/10 space-y-4">
@@ -611,6 +809,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
           )}
         </div>
+      </div>
+      )}
       </main>
 
       {/* 5. Detail & Management Modal */}

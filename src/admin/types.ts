@@ -48,3 +48,34 @@ export interface DashboardStats {
   conversionRate: number;
   recentEnquiries: Enquiry[];
 }
+
+export interface AdminReel {
+  id: string;
+  title: string;
+  caption?: string | null;
+  mediaType: 'VIDEO' | 'IMAGE';
+  videoUrl: string;
+  thumbnailUrl?: string | null;
+  instagramUrl?: string | null;
+  displayOrder: number;
+  isPublished: boolean;
+  views?: string | null;
+  likes?: string | null;
+  audioTrack?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminPricingPackage {
+  id: string;
+  name: string;
+  tierNumber: string;
+  tierSubtitle: string;
+  badge?: string;
+  startingPrice: string;
+  priceNote: string;
+  valueProposition: string;
+  isPopular?: boolean;
+  features: string[];
+  ctaText: string;
+}
