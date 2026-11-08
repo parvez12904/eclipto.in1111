@@ -33,3 +33,7 @@ dist-ssr
 .agents/
 .gemini/
 .vercel
+
+# Uploaded test media in development
+public/uploads/videos/reel-*
+public/uploads/thumbnails/reel-*
