@@ -1,3 +1,5 @@
+import { SERVICES, type Service } from '../data/agencyData';
+
 export interface HeroContent {
   mainHeading: string;
   highlightedHeading: string;
@@ -5,6 +7,10 @@ export interface HeroContent {
   primaryCtaText: string;
   secondaryCtaText: string;
 }
+
+export type DynamicService = Service;
+
+export const DEFAULT_SERVICES: DynamicService[] = SERVICES;
 
 export interface DynamicPricingPackage {
   id: string;
@@ -61,3 +67,4 @@ export async function fetchWebsiteContent(): Promise<Record<string, Record<strin
     },
   };
 }
+

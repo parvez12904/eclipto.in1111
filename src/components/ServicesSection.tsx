@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { SERVICES } from '../data/agencyData';
+import React, { useState, useEffect } from 'react';
+import { SERVICES, type Service } from '../data/agencyData';
+import { fetchWebsiteContent } from '../services/content';
 import {
   ArrowUpRight,
   Check,
@@ -460,7 +461,27 @@ const MarketingGraphic: React.FC = () => (
 /* -------------------------------------------------------------------------- */
 
 export const ServicesSection: React.FC = () => {
+  const [services, setServices] = useState<Service[]>(SERVICES);
   const [activeServiceId, setActiveServiceId] = useState<string>(SERVICES[0].id);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchWebsiteContent().then((data) => {
+      if (mounted && data?.services?.services_list) {
+        try {
+          const parsed = JSON.parse(data.services.services_list);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setServices(parsed);
+          }
+        } catch {
+          // Fall back gracefully to static SERVICES
+        }
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const getServiceGraphic = (id: string) => {
     switch (id) {
@@ -501,7 +522,7 @@ export const ServicesSection: React.FC = () => {
   };
 
   const activeService =
-    SERVICES.find((s) => s.id === activeServiceId) || SERVICES[0];
+    services.find((s) => s.id === activeServiceId) || services[0] || SERVICES[0];
 
   return (
     <section
@@ -540,7 +561,7 @@ export const ServicesSection: React.FC = () => {
 
         {/* 6 Services Grid with Bespoke Domain Visuals */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 sm:mb-14">
-          {SERVICES.map((service) => {
+          {services.map((service) => {
             const isActive = activeServiceId === service.id;
             return (
               <div

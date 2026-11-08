@@ -57,6 +57,9 @@ app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 // Cookie parser for JWT session cookies
 app.use(cookieParser());
 
+// Static file serving for uploaded reels and assets
+app.use('/uploads', express.static(path.resolve(__dirname, '../public/uploads')));
+
 // Rate Limiter for public enquiry submission
 const enquirySubmitLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

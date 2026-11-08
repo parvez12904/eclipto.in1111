@@ -22,12 +22,14 @@ import {
   Film,
   Sparkles,
   Settings,
+  FolderKanban,
 } from 'lucide-react';
 import type { AdminUser, DashboardStats, Enquiry } from './types';
 import { ReelsManagement } from './components/ReelsManagement';
 import { WebContentManagement } from './components/WebContentManagement';
 import { PricingManagement } from './components/PricingManagement';
 import { SettingsManagement } from './components/SettingsManagement';
+import { ProjectsManagement } from './components/ProjectsManagement';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -43,7 +45,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onBackToWebsite,
 }) => {
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'content' | 'reels' | 'pricing' | 'inquiries' | 'settings'
+    'dashboard' | 'content' | 'projects' | 'reels' | 'pricing' | 'inquiries' | 'settings'
   >('dashboard');
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
@@ -260,13 +262,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const navTabs: {
-    id: 'dashboard' | 'content' | 'reels' | 'pricing' | 'inquiries' | 'settings';
+    id: 'dashboard' | 'content' | 'projects' | 'reels' | 'pricing' | 'inquiries' | 'settings';
     label: string;
     icon: any;
     badge?: number;
   }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'content', label: 'Website Content', icon: FileText },
+    { id: 'projects', label: 'Portfolio / Projects', icon: FolderKanban },
     { id: 'reels', label: 'Reels & Videos', icon: Film },
     { id: 'pricing', label: 'Pricing', icon: Sparkles },
     { id: 'inquiries', label: 'Contact / Inquiries', icon: MessageSquare, badge: totalCount > 0 ? totalCount : undefined },
@@ -356,6 +359,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* TAB 1: WEBSITE CONTENT */}
         {activeTab === 'content' && <WebContentManagement token={token} />}
+
+        {/* TAB 1.5: PORTFOLIO & PROJECTS */}
+        {activeTab === 'projects' && <ProjectsManagement token={token} />}
 
         {/* TAB 2: REELS & VIDEOS */}
         {activeTab === 'reels' && <ReelsManagement token={token} />}
@@ -449,7 +455,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <h3 className="font-heading font-black text-lg text-white">
                 Quick Content Management Shortcuts
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 <button
                   onClick={() => setActiveTab('content')}
                   className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
@@ -458,8 +464,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm text-white">Edit Hero Content</h4>
+                    <h4 className="font-bold text-sm text-white">Hero & Content</h4>
                     <p className="text-xs text-white/50 mt-1">Headlines & CTA buttons</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('projects')}
+                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#FF1053]/15 text-[#FF1053] group-hover:scale-110 transition-transform">
+                    <FolderKanban className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white">Client Projects</h4>
+                    <p className="text-xs text-white/50 mt-1">Devine Homz, Kraftor...</p>
                   </div>
                 </button>
 
@@ -491,7 +510,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
                 <button
                   onClick={() => setActiveTab('inquiries')}
-                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group"
+                  className="p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#FF1053] transition-all text-left flex items-start space-x-3 group sm:col-span-2 lg:col-span-1"
                 >
                   <div className="p-2.5 rounded-xl bg-[#FF1053]/15 text-[#FF1053] group-hover:scale-110 transition-transform">
                     <MessageSquare className="w-5 h-5" />

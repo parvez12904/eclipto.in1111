@@ -11,6 +11,8 @@ import {
   Loader2,
   X,
   Play,
+  UploadCloud,
+  FileVideo,
 } from 'lucide-react';
 import type { AdminReel } from '../types';
 
@@ -22,6 +24,7 @@ export const ReelsManagement: React.FC<ReelsManagementProps> = ({ token }) => {
   const [reels, setReels] = useState<AdminReel[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -105,6 +108,46 @@ export const ReelsManagement: React.FC<ReelsManagementProps> = ({ token }) => {
     setInstagramUrl(reel.instagramUrl || '');
     setDisplayOrder(reel.displayOrder);
     setIsPublished(reel.isPublished);
+  };
+
+  // Upload Video or Thumbnail directly
+  const handleFileUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    isThumbnail = false
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    setUploading(true);
+
+    try {
+      const res = await fetch('/api/admin/reels/upload', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      const json = await res.json();
+      if (res.ok && json.ok) {
+        if (isThumbnail) {
+          setThumbnailUrl(json.url);
+        } else {
+          setVideoUrl(json.url);
+        }
+        showNotification(
+          `${isThumbnail ? 'Thumbnail image' : 'Video file'} uploaded successfully!`
+        );
+      } else {
+        showNotification(json.message || 'Upload failed', true);
+      }
+    } catch {
+      showNotification('File upload error', true);
+    } finally {
+      setUploading(false);
+    }
   };
 
   // Submit Add Reel
@@ -465,29 +508,79 @@ export const ReelsManagement: React.FC<ReelsManagementProps> = ({ token }) => {
                 />
               </div>
 
-              <div>
-                <label className="block uppercase tracking-wider text-white/70 mb-1.5">
-                  Video URL (Direct MP4 / CDN Link) *
-                </label>
+              {/* Video URL or File Upload */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block uppercase tracking-wider text-white/70">
+                    Video Source (URL or File Upload) *
+                  </label>
+                  <label className="cursor-pointer text-[11px] font-mono text-[#FF1053] hover:underline flex items-center space-x-1">
+                    <UploadCloud className="w-3.5 h-3.5" />
+                    <span>Upload Video File</span>
+                    <input
+                      type="file"
+                      accept="video/mp4,video/webm,video/quicktime"
+                      className="hidden"
+                      disabled={uploading}
+                      onChange={(e) => handleFileUpload(e, false)}
+                    />
+                  </label>
+                </div>
+
                 <input
-                  type="url"
+                  type="text"
                   required
                   value={videoUrl}
                   onChange={(e) => setVideoUrl(e.target.value)}
-                  placeholder="https://cdn.example.com/videos/reel.mp4"
+                  placeholder="https://cdn.example.com/videos/reel.mp4 or /uploads/videos/..."
                   className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-[#FF1053] transition-colors"
                 />
+
+                {/* Quick select custom uploaded video */}
+                <div className="flex items-center justify-between pt-1 text-[10px] text-white/50">
+                  <span>Direct URL or local uploaded file path</span>
+                  <button
+                    type="button"
+                    onClick={() => setVideoUrl('/uploads/videos/eclipto-reel-custom.mp4')}
+                    className="text-[#25D366] hover:underline flex items-center space-x-1"
+                  >
+                    <FileVideo className="w-3 h-3" />
+                    <span>Use custom uploaded video</span>
+                  </button>
+                </div>
+
+                {uploading && (
+                  <div className="p-2 rounded-lg bg-[#FF1053]/10 border border-[#FF1053]/30 flex items-center space-x-2 text-[11px] text-[#FF1053] animate-pulse">
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Uploading video file to server storage...</span>
+                  </div>
+                )}
               </div>
 
-              <div>
-                <label className="block uppercase tracking-wider text-white/70 mb-1.5">
-                  Thumbnail / Cover Image URL (Optional)
-                </label>
+              {/* Thumbnail URL or File Upload */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block uppercase tracking-wider text-white/70">
+                    Cover / Thumbnail Image (Optional)
+                  </label>
+                  <label className="cursor-pointer text-[11px] font-mono text-[#FF1053] hover:underline flex items-center space-x-1">
+                    <UploadCloud className="w-3.5 h-3.5" />
+                    <span>Upload Cover Image</span>
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      disabled={uploading}
+                      onChange={(e) => handleFileUpload(e, true)}
+                    />
+                  </label>
+                </div>
+
                 <input
-                  type="url"
+                  type="text"
                   value={thumbnailUrl}
                   onChange={(e) => setThumbnailUrl(e.target.value)}
-                  placeholder="https://images.unsplash.com/photo-..."
+                  placeholder="https://images.unsplash.com/... or /uploads/thumbnails/..."
                   className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-[#FF1053] transition-colors"
                 />
               </div>

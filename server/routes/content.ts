@@ -84,6 +84,106 @@ export const DEFAULT_CONTENT: Record<string, Record<string, string>> = {
       },
     ]),
   },
+  services: {
+    services_list: JSON.stringify([
+      {
+        id: 'website-development',
+        num: '01',
+        title: 'Website Development',
+        headline: 'High-performance websites and immersive 3D digital experiences.',
+        description:
+          'We combine avant-garde art direction, buttery 60fps WebGL motion, and obsessive attention to typographic detail to make your digital presence unforgettable.',
+        deliverables: [
+          'Interactive 3D Websites & Configurator Apps',
+          'Award-Winning Motion Design & Micro-Animations',
+          'Custom Shader Programming & Canvas Effects',
+          'High-Conversion Design Systems & Brand Kits',
+        ],
+        techStack: ['React', 'Three.js / WebGL', 'Tailwind CSS', 'Vite', 'Framer Motion'],
+        metrics: 'Top 1% Global Retention Rate',
+      },
+      {
+        id: 'custom-software',
+        num: '02',
+        title: 'Custom Software Development',
+        headline: 'Resilient software platforms engineered for extreme scale.',
+        description:
+          'From sub-second financial terminals to enterprise SaaS backbones, we build resilient, secure, and reactive software platforms that scale gracefully.',
+        deliverables: [
+          'Micro-Frontend & Edge SSR Architectures',
+          'Real-Time WebSocket & Offscreen Canvas Systems',
+          'High-Security API & Database Modeling',
+          'Zero-Downtime Deployment & CI/CD Pipelines',
+        ],
+        techStack: ['TypeScript', 'Node.js', 'Next.js', 'Rust', 'PostgreSQL', 'Docker'],
+        metrics: '99.99% Production Uptime',
+      },
+      {
+        id: 'ai-automation',
+        num: '03',
+        title: 'AI Agents & Automation',
+        headline: 'Transform operational complexity into autonomous intelligence.',
+        description:
+          'We design and deploy proprietary AI agent pipelines, custom generative UI components, and domain-tuned models that give your business an unfair advantage.',
+        deliverables: [
+          'Autonomous Multi-Agent Workflow Pipelines',
+          'Low-Latency Generative UI Interfaces',
+          'Custom LLM Fine-Tuning & RAG Architectures',
+          'Secure On-Premise & Edge Neural Inference',
+        ],
+        techStack: ['PyTorch', 'LangChain', 'FastAPI', 'Vector DBs', 'Edge Runtime'],
+        metrics: '8.4x Operational Acceleration',
+      },
+      {
+        id: 'whatsapp-automation',
+        num: '04',
+        title: 'WhatsApp Business Automation',
+        headline: 'Conversational sales, automated lead qualification, and 24/7 engagement.',
+        description:
+          'Integrate high-conversion WhatsApp bots, broadcast workflows, and verified API automations directly into your CRM to close clients on autopilot.',
+        deliverables: [
+          'Official WhatsApp Cloud API & Bot Architecture',
+          'Automated Lead Qualification & Booking Funnels',
+          'CRM & ERP Synchronization (HubSpot, Salesforce, Sheets)',
+          'Multi-Agent Customer Support & Broadcast Routing',
+        ],
+        techStack: ['WhatsApp Cloud API', 'Node.js', 'Webhooks', 'Redis', 'Python'],
+        metrics: '3.8x Higher Conversion vs Email',
+      },
+      {
+        id: 'branding-design',
+        num: '05',
+        title: 'Branding & Creative Design',
+        headline: 'Distinctive visual identities that command industry authority.',
+        description:
+          'Bespoke visual identities, kinetic motion languages, design token architectures, and typographic direction crafted for modern high-growth brands.',
+        deliverables: [
+          'Brand Identity Guidelines & Logo Systems',
+          'Kinetic Motion Design & Video Showreels',
+          'Comprehensive Design Systems & Component Libraries',
+          'Editorial Print & Packaging Collateral',
+        ],
+        techStack: ['Figma', 'After Effects', 'GLSL', 'Cinema 4D', 'Design Tokens'],
+        metrics: 'Award-Winning Brand Recall',
+      },
+      {
+        id: 'digital-marketing',
+        num: '06',
+        title: 'Digital Marketing & Growth',
+        headline: 'Full-funnel growth architecture tailored for market dominance.',
+        description:
+          'Data-driven performance marketing, technical SEO, high-conversion landing page funnels, and retention systems that consistently generate qualified pipeline.',
+        deliverables: [
+          'Technical SEO & Core Web Vitals Dominance',
+          'High-Intent Paid Acquisition (Google, Meta, LinkedIn)',
+          'Conversion Rate Optimization (CRO) & A/B Testing',
+          'Customer Lifecycle & Behavioral Telemetry',
+        ],
+        techStack: ['Google Ads', 'Meta API', 'PostHog', 'Mixpanel', 'VWO'],
+        metrics: 'Average 310% Revenue Growth',
+      },
+    ]),
+  },
 };
 
 /* -------------------------------------------------------------------------- */
@@ -195,3 +295,4 @@ contentAdminRouter.put('/', requireAdminAuth, async (req: Request, res: Response
     res.status(500).json({ ok: false, message: 'Failed to save website content.' });
   }
 });
+

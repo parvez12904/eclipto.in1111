@@ -1,10 +1,54 @@
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
+import path from 'path';
+import fs from 'fs';
+import multer from 'multer';
 import { prisma } from '../db';
 import { requireAdminAuth } from '../middleware/auth';
 
 export const reelsPublicRouter = Router();
 export const reelsAdminRouter = Router();
+
+// Multer Storage Configuration
+const storage = multer.diskStorage({
+  destination: (_req, file, cb) => {
+    const isVideo = file.mimetype.startsWith('video/');
+    const uploadDir = path.resolve(
+      process.cwd(),
+      'public/uploads',
+      isVideo ? 'videos' : 'thumbnails'
+    );
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, `reel-${uniqueSuffix}${ext}`);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
+  fileFilter: (_req, file, cb) => {
+    const allowed = [
+      'video/mp4',
+      'video/webm',
+      'video/quicktime',
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+    ];
+    if (allowed.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Unsupported file type. Please upload MP4, WebM, MOV, JPG, PNG, or WebP.'));
+    }
+  },
+});
 
 // Validation Schemas
 const reelCreateSchema = z.object({
@@ -289,3 +333,27 @@ reelsAdminRouter.delete('/:id', requireAdminAuth, async (req: Request, res: Resp
     res.status(500).json({ ok: false, message: 'Failed to delete reel.' });
   }
 });
+
+// POST /api/admin/reels/upload - Upload video file or cover image
+reelsAdminRouter.post(
+  '/upload',
+  requireAdminAuth,
+  upload.single('file'),
+  (req: Request, res: Response): void => {
+    if (!req.file) {
+      res.status(400).json({ ok: false, message: 'No file was uploaded.' });
+      return;
+    }
+    const isVideo = req.file.mimetype.startsWith('video/');
+    const relativeUrl = `/uploads/${isVideo ? 'videos' : 'thumbnails'}/${req.file.filename}`;
+    res.json({
+      ok: true,
+      message: `${isVideo ? 'Video' : 'Image'} uploaded successfully.`,
+      url: relativeUrl,
+      filename: req.file.filename,
+      sizeBytes: req.file.size,
+      mimetype: req.file.mimetype,
+    });
+  }
+);
+
