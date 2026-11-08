@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Phone,
   Mail,
@@ -18,9 +18,19 @@ import {
   buildCustomMailto,
 } from '../config/contact';
 
-export const ContactSection: React.FC = () => {
+interface ContactSectionProps {
+  selectedPackage?: string;
+  onPackageChange?: (pkg: string) => void;
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({
+  selectedPackage,
+  onPackageChange,
+}) => {
   const [selectedScope, setSelectedScope] = useState<string>('Website & 3D Web');
-  const [selectedBudget, setSelectedBudget] = useState<string>('$30K - $75K / ₹25L - ₹60L');
+  const [selectedBudget, setSelectedBudget] = useState<string>(
+    selectedPackage || 'Professional — ₹12,999'
+  );
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -32,6 +42,13 @@ export const ContactSection: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedRef, setCopiedRef] = useState(false);
 
+  // Sync incoming package selection from Pricing or Showcase
+  useEffect(() => {
+    if (selectedPackage) {
+      setSelectedBudget(selectedPackage);
+    }
+  }, [selectedPackage]);
+
   const scopes = [
     'Website & 3D Web',
     'Custom Software',
@@ -40,10 +57,10 @@ export const ContactSection: React.FC = () => {
   ];
 
   const budgets = [
-    'Starter (< ₹5L)',
-    'Growth (₹5L - ₹15L)',
-    'Enterprise (₹15L+)',
-    'Custom / Flexible',
+    'Starter — ₹5,999',
+    'Professional — ₹12,999',
+    'Premium — ₹21,999+',
+    'Custom Quote — Flexible',
   ];
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -120,7 +137,7 @@ export const ContactSection: React.FC = () => {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-        
+
         {/* Section Header (STEP 4) */}
         <div className="max-w-3xl mb-10 sm:mb-12">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4 sm:mb-5">
@@ -145,7 +162,7 @@ export const ContactSection: React.FC = () => {
 
         {/* 3 Prominent Functional Contact Action Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-10 sm:mb-14">
-          
+
           {/* 1. CALL NOW */}
           <a
             href={CONTACT_CONFIG.phone.telLink}
@@ -275,11 +292,11 @@ export const ContactSection: React.FC = () => {
 
         {/* 2-Column Section: Project Builder Form & Official Profile */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* LEFT: Project Scope Form & Live Dispatch (7 Cols) */}
           <div className="lg:col-span-7">
             <div className="p-5 sm:p-8 md:p-10 rounded-3xl glass-panel border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
-              
+
               {showDispatchOptions ? (
                 <div className="py-6 space-y-6 animate-in fade-in zoom-in-95 duration-200">
                   <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-start space-x-4">
@@ -415,11 +432,10 @@ export const ContactSection: React.FC = () => {
                             type="button"
                             key={scope}
                             onClick={() => setSelectedScope(scope)}
-                            className={`px-4 py-2 rounded-xl text-xs font-mono tracking-wider transition-all duration-200 ${
-                              isSelected
-                                ? 'bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white font-bold shadow-[0_0_18px_rgba(230,0,76,0.4)]'
-                                : 'glass-panel border border-white/10 text-white/70 hover:text-white hover:border-white/25'
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-mono tracking-wider transition-all duration-200 ${isSelected
+                              ? 'bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white font-bold shadow-[0_0_18px_rgba(230,0,76,0.4)]'
+                              : 'glass-panel border border-white/10 text-white/70 hover:text-white hover:border-white/25'
+                              }`}
                           >
                             {scope}
                           </button>
@@ -428,23 +444,33 @@ export const ContactSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Budget Selector Pills */}
+                  {/* Budget & Package Selector Pills */}
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-widest text-white/60 mb-3">
-                      02 // ESTIMATED INVESTMENT RANGE
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div className="flex items-center justify-between mb-3">
+                      <label className="block text-xs font-mono uppercase tracking-widest text-white/60">
+                        02 // INVESTMENT TIER & PACKAGE
+                      </label>
+                      <span className="text-[10px] font-mono text-[#FF1053] uppercase tracking-wider font-bold">
+                        PRESELECTABLE
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
                       {budgets.map((budget) => {
                         const isSelected = selectedBudget === budget;
                         return (
                           <button
                             type="button"
                             key={budget}
-                            onClick={() => setSelectedBudget(budget)}
-                            className={`py-2 px-1.5 sm:px-2.5 rounded-xl text-[11px] sm:text-xs font-mono text-center tracking-wider transition-all duration-200 ${
+                            onClick={() => {
+                              setSelectedBudget(budget);
+                              if (onPackageChange) {
+                                onPackageChange(budget);
+                              }
+                            }}
+                            className={`py-2.5 px-2.5 rounded-xl text-xs font-mono text-center tracking-wider transition-all duration-200 ${
                               isSelected
-                                ? 'bg-white text-black font-bold shadow-[0_0_20px_rgba(255,255,255,0.4)]'
-                                : 'glass-panel border border-white/10 text-white/70 hover:text-white hover:border-white/25'
+                                ? 'bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white font-bold border border-[#FF1053] shadow-[0_0_20px_rgba(230,0,76,0.45)] scale-[1.02]'
+                                : 'glass-panel border border-white/10 text-white/75 hover:text-white hover:border-white/25'
                             }`}
                           >
                             {budget}
@@ -579,7 +605,7 @@ export const ContactSection: React.FC = () => {
 
           {/* RIGHT: Official Business Profile & Guarantee (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
-            
+
             {/* Business Contact Card */}
             <div className="p-7 sm:p-8 rounded-3xl glass-panel border border-white/15 space-y-5">
               <div className="flex items-center space-x-3 pb-4 border-b border-white/10">

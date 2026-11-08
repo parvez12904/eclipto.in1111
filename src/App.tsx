@@ -4,7 +4,7 @@ import { MobileMenu } from './components/MobileMenu';
 import { HeroSection } from './components/HeroSection';
 import { ReelsSection } from './components/ReelsSection';
 import { WorkSection } from './components/WorkSection';
-import { VideoShowcaseSection } from './components/VideoShowcaseSection';
+import { DigitalShowcaseSection } from './components/DigitalShowcaseSection';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { PricingSection } from './components/PricingSection';
@@ -23,6 +23,7 @@ export function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<string>('Professional — ₹12,999');
 
   // Synchronize route changes on browser back/forward buttons
   useEffect(() => {
@@ -51,6 +52,12 @@ export function App() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  // Package selection handler (preselects package and scrolls to contact section)
+  const handleSelectPackage = (pkg: string) => {
+    setSelectedPackage(pkg);
+    scrollToSection('contact');
   };
 
   // Track active section dynamically during scrolling
@@ -108,8 +115,11 @@ export function App() {
       {/* 5. Selected Work & Client Portfolio */}
       <WorkSection />
 
-      {/* 6. Cinematic Brand Film & Motion Showcase */}
-      <VideoShowcaseSection onNavigate={scrollToSection} />
+      {/* 6. Digital Website Previews & AI Creative Showcase */}
+      <DigitalShowcaseSection
+        onNavigate={scrollToSection}
+        onSelectPackage={handleSelectPackage}
+      />
 
       {/* 7. About & Manifesto */}
       <AboutSection />
@@ -118,7 +128,10 @@ export function App() {
       <ServicesSection />
 
       {/* 8. Transparent Website Development Pricing Packages */}
-      <PricingSection onNavigate={scrollToSection} />
+      <PricingSection
+        onNavigate={scrollToSection}
+        onSelectPackage={handleSelectPackage}
+      />
 
       {/* 9. Execution Process */}
       <ProcessSection />
@@ -126,8 +139,11 @@ export function App() {
       {/* 10. Agency Insights */}
       <InsightsSection />
 
-      {/* 11. Contact & Inquiries (With Parvez Khan official contact details) */}
-      <ContactSection />
+      {/* 11. Contact & Inquiries (With preselected package tier & direct Parvez Khan line) */}
+      <ContactSection
+        selectedPackage={selectedPackage}
+        onPackageChange={setSelectedPackage}
+      />
 
       {/* 12. Global Footer */}
       <Footer onNavigate={scrollToSection} onOpenAdmin={navigateToAdmin} />

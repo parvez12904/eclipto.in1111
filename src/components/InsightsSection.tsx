@@ -9,7 +9,7 @@ export const InsightsSection: React.FC = () => {
   return (
     <section id="insights" className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 border-b border-white/10 pb-6 sm:pb-8 gap-5">
           <div className="max-w-2xl">

@@ -34,23 +34,24 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
-          ? 'py-2.5 sm:py-3 bg-[#080104]/85 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-          : 'py-3.5 sm:py-4.5 lg:py-5 bg-transparent'
-        }`}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        isScrolled
+          ? 'py-3 bg-[#080104]/75 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+          : 'py-6 bg-transparent'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* LEFT: ECLIPTO Brand Mark & Name */}
         <button
           onClick={() => onNavigate('hero')}
-          className="group flex items-center space-x-3 focus:outline-none"
+          className="group flex items-center space-x-3.5 focus:outline-none"
           aria-label="ECLIPTO Homepage"
         >
           {/* Minimalist Stylized 'E' Inside Square Glass Container */}
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg glass-panel flex items-center justify-center border border-white/20 shadow-[0_0_15px_rgba(230,0,76,0.25)] group-hover:border-[#E6004C] group-hover:shadow-[0_0_20px_rgba(230,0,76,0.6)] transition-all duration-300">
+          <div className="w-10 h-10 rounded-lg glass-panel flex items-center justify-center border border-white/20 shadow-[0_0_15px_rgba(230,0,76,0.25)] group-hover:border-[#E6004C] group-hover:shadow-[0_0_20px_rgba(230,0,76,0.6)] transition-all duration-300">
             <svg
               viewBox="0 0 24 24"
-              className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#FF1053] transition-transform duration-300 group-hover:scale-105"
+              className="w-5 h-5 text-[#FF1053] transition-transform duration-300 group-hover:scale-105"
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
@@ -63,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
               <path d="M4 5v14" />
             </svg>
           </div>
-          <span className="font-display font-black tracking-[0.22em] text-base sm:text-lg text-white group-hover:text-white transition-colors">
+          <span className="font-display font-black tracking-[0.25em] text-lg text-white group-hover:text-white transition-colors">
             ECLIPTO
           </span>
         </button>

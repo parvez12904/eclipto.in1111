@@ -237,11 +237,34 @@ const PremiumEmblem: React.FC = () => (
 
 interface PricingSectionProps {
   onNavigate?: (sectionId: string) => void;
+  onSelectPackage?: (packageTitle: string) => void;
 }
 
-export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) => {
+export const PricingSection: React.FC<PricingSectionProps> = ({
+  onNavigate,
+  onSelectPackage,
+}) => {
   const getWhatsAppLink = (message: string) => {
     return `https://wa.me/${CONTACT_CONFIG.whatsapp.number}?text=${encodeURIComponent(message)}`;
+  };
+
+  const handleChoosePackage = (packageName: string, startingPrice: string) => {
+    const fullPackageTitle = `${packageName} — ${startingPrice}`;
+    if (onSelectPackage) {
+      onSelectPackage(fullPackageTitle);
+    }
+    if (onNavigate) {
+      onNavigate('contact');
+    }
+  };
+
+  const handleCustomQuote = () => {
+    if (onSelectPackage) {
+      onSelectPackage('Custom Quote — Flexible');
+    }
+    if (onNavigate) {
+      onNavigate('contact');
+    }
   };
 
   const getPackageEmblem = (id: string) => {
@@ -260,7 +283,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
   return (
     <section
       id="pricing"
-      className="relative py-12 sm:py-16 md:py-20 lg:py-22 bg-[#080104] z-10 border-t border-white/10"
+      className="relative py-16 sm:py-20 md:py-24 bg-[#080104] z-10 border-t border-white/10"
       aria-label="Website Development Pricing Packages"
     >
       {/* Background radial gradient glow */}
@@ -269,13 +292,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative">
         {/* Section Header */}
-        <div className="max-w-3xl mb-10 sm:mb-12">
+        <div className="max-w-3xl mb-12 sm:mb-16">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/30 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E6004C] animate-pulse" />
-            <span className="font-tech text-[#E6004C] text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold">
-              06 / TRANSPARENT PRICING
+            <span className="font-tech text-[#E6004C] text-[11px] uppercase tracking-[0.25em] font-bold">
+              04 / TRANSPARENT PRICING
             </span>
           </div>
 
@@ -286,19 +309,19 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
             </span>
           </h2>
 
-          <p className="mt-3 sm:mt-4 text-white/75 font-body text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl">
+          <p className="mt-4 text-white/75 font-body text-sm sm:text-base leading-relaxed max-w-2xl">
             Transparent starting packages crafted for every stage of your digital journey.
             Zero hidden costs, rigorous production quality, and direct developer communication.
           </p>
         </div>
 
         {/* 3 Pricing Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch mb-10 sm:mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch mb-12 sm:mb-14">
           {PACKAGES.map((pkg) => {
             return (
               <div
                 key={pkg.id}
-                className={`relative rounded-3xl glass-panel p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ${
+                className={`relative rounded-3xl glass-panel p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ${
                   pkg.isPopular
                     ? 'border-[#FF1053] bg-white/[0.06] shadow-[0_15px_50px_rgba(230,0,76,0.3)] lg:-translate-y-2'
                     : 'border-white/10 hover:border-white/25 hover:bg-white/[0.03] hover:-translate-y-1'
@@ -314,7 +337,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
 
                 <div>
                   {/* Visual Emblem Graphic */}
-                  <div className="mb-4 overflow-hidden">
+                  <div className="mb-5 overflow-hidden">
                     {getPackageEmblem(pkg.id)}
                   </div>
 
@@ -324,7 +347,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
                       <span className="font-tech text-[10px] text-[#FF1053] uppercase tracking-widest font-bold block mb-0.5">
                         {pkg.tierNumber} • {pkg.tierSubtitle}
                       </span>
-                      <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tight">
+                      <h3 className="font-display text-2xl font-black text-white tracking-tight">
                         {pkg.name}
                       </h3>
                     </div>
@@ -336,11 +359,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
                       STARTING FROM
                     </span>
                     <div className="flex items-baseline space-x-1">
-                      <span className="font-display font-black text-3xl sm:text-4xl text-white tracking-tight text-glow-pink">
+                      <span className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight text-glow-pink">
                         {pkg.startingPrice}
                       </span>
                     </div>
-                    <span className="text-[11px] sm:text-xs font-mono text-white/60 mt-1 block">
+                    <span className="text-xs font-mono text-white/60 mt-1 block">
                       {pkg.priceNote}
                     </span>
                   </div>
@@ -368,32 +391,31 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
                   </div>
                 </div>
 
-                {/* Card CTA: WhatsApp Connect / Inquiry */}
-                <div className="pt-4 border-t border-white/10">
+                {/* Card CTA: Choose Package (Preselects in Form) & WhatsApp Option */}
+                <div className="pt-4 border-t border-white/10 space-y-2.5">
+                  <button
+                    onClick={() => handleChoosePackage(pkg.name, pkg.startingPrice)}
+                    className={`w-full inline-flex items-center justify-center space-x-2 px-5 py-3.5 rounded-xl font-display text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md ${
+                      pkg.isPopular
+                        ? 'bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_25px_rgba(230,0,76,0.45)] hover:shadow-[0_0_35px_rgba(230,0,76,0.7)] hover:scale-[1.02] active:scale-95'
+                        : 'glass-panel border border-white/20 text-white hover:border-[#FF1053] hover:bg-[#FF1053]/15 hover:text-white active:scale-95'
+                    }`}
+                    aria-label={`Select ${pkg.name} package and proceed to inquiry form`}
+                  >
+                    <span>{pkg.ctaText}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
+
                   <a
                     href={getWhatsAppLink(pkg.whatsappMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full inline-flex items-center justify-center space-x-2 px-5 py-3.5 rounded-xl font-display text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md ${
-                      pkg.isPopular
-                        ? 'bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_25px_rgba(230,0,76,0.45)] hover:shadow-[0_0_35px_rgba(230,0,76,0.7)] hover:scale-[1.02] active:scale-95'
-                        : 'glass-panel border border-white/20 text-white hover:border-[#FF1053] hover:bg-[#FF1053]/15 hover:text-white'
-                    }`}
+                    className="w-full inline-flex items-center justify-center space-x-2 py-2 rounded-lg text-[11px] font-mono text-white/60 hover:text-white transition-colors"
                     aria-label={`Inquire about ${pkg.name} package on WhatsApp`}
                   >
                     <MessageSquare className="w-3.5 h-3.5 text-[#25D366]" />
-                    <span>{pkg.ctaText}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <span>or chat instantly on WhatsApp</span>
                   </a>
-
-                  {onNavigate && (
-                    <button
-                      onClick={() => onNavigate('contact')}
-                      className="w-full mt-2 text-center text-[11px] font-tech text-white/50 hover:text-white transition-colors"
-                    >
-                      or submit custom enquiry form
-                    </button>
-                  )}
                 </div>
               </div>
             );
@@ -441,17 +463,24 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onNavigate }) =>
             </div>
 
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center w-full">
+              <button
+                onClick={handleCustomQuote}
+                className="w-full inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3.5 rounded-xl font-display text-xs font-bold tracking-widest uppercase bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_25px_rgba(230,0,76,0.45)] hover:shadow-[0_0_35px_rgba(230,0,76,0.7)] transition-all active:scale-95"
+              >
+                <span>REQUEST BESPOKE QUOTE</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+
               <a
                 href={getWhatsAppLink(
                   'Hi Parvez, I would like to request a customized quotation for a bespoke website project.'
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3.5 rounded-xl font-display text-xs font-bold tracking-widest uppercase bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_25px_rgba(230,0,76,0.45)] hover:shadow-[0_0_35px_rgba(230,0,76,0.7)] transition-all"
+                className="w-full inline-flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 rounded-xl glass-panel border border-[#25D366]/40 text-white hover:border-[#25D366] hover:bg-[#25D366]/10 text-xs font-display font-bold tracking-widest uppercase transition-all"
               >
                 <MessageSquare className="w-4 h-4 text-[#25D366]" />
-                <span>REQUEST CUSTOM QUOTE</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <span>WHATSAPP PARVEZ</span>
               </a>
 
               <a
