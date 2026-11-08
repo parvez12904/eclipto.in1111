@@ -114,7 +114,7 @@ export const ReelsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="reels"
-      className="relative py-14 sm:py-16 md:py-20 bg-[#080104] z-10 overflow-hidden border-t border-white/10"
+      className="relative py-12 sm:py-16 md:py-20 bg-[#080104] z-10 overflow-hidden border-t border-white/10"
       aria-label="Instagram Showcase and Creative Motion Reels"
     >
       {/* 1. COMPACT BACKGROUND ACCENTS & DEPTH */}
@@ -141,25 +141,25 @@ export const ReelsSection: React.FC = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         {/* 2. REFINED COMPACT HEADER WITH PROPORTIONATE TYPOGRAPHY */}
         <div
-          className={`flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-5 transition-all duration-700 ease-out ${
+          className={`flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-10 gap-4 sm:gap-5 transition-all duration-700 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="max-w-2xl space-y-2.5">
+          <div className="max-w-2xl space-y-2 sm:space-y-2.5">
             {/* Tag Pill */}
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full glass-panel border border-[#E6004C]/35 shadow-[0_0_15px_rgba(230,0,76,0.15)]">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF1053] opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF1053]" />
               </span>
-              <span className="font-tech text-[#FF1053] text-[10px] uppercase tracking-[0.22em] font-bold">
+              <span className="font-tech text-[#FF1053] text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.22em] font-bold">
                 02 / INSTAGRAM SHOWCASE
               </span>
               <span className="text-white/30 text-[9px]">•</span>
-              <span className="font-tech text-white/75 text-[10px] tracking-wider">
+              <span className="font-tech text-white/75 text-[9.5px] sm:text-[10px] tracking-wider">
                 {CONTACT_CONFIG.instagram.display}
               </span>
             </div>
@@ -185,17 +185,17 @@ export const ReelsSection: React.FC = () => {
           </div>
 
           {/* Action Header Controls: Compact Follow Button & Navigation Arrows */}
-          <div className="flex items-center space-x-3 self-start md:self-end pt-1">
+          <div className="flex items-center space-x-3 self-start md:self-end pt-1 w-full sm:w-auto">
             <a
               href={CONTACT_CONFIG.instagram.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 px-4.5 py-2.5 rounded-full text-[11px] font-display font-bold tracking-[0.14em] uppercase bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_20px_rgba(230,0,76,0.35)] hover:shadow-[0_0_28px_rgba(230,0,76,0.6)] hover:scale-[1.03] active:scale-95 transition-all duration-300 group"
+              className="inline-flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-4.5 sm:py-2.5 rounded-full text-[10px] sm:text-[11px] font-display font-bold tracking-[0.14em] uppercase bg-gradient-to-r from-[#E6004C] to-[#FF1053] text-white shadow-[0_0_20px_rgba(230,0,76,0.35)] hover:shadow-[0_0_28px_rgba(230,0,76,0.6)] active:scale-95 transition-all duration-300 group w-full sm:w-auto"
               aria-label={`Follow ${CONTACT_CONFIG.instagram.display} on Instagram`}
             >
-              <InstagramIcon className="w-3.5 h-3.5 text-white transition-transform group-hover:rotate-12" />
+              <InstagramIcon className="w-3.5 h-3.5 text-white transition-transform group-hover:rotate-12 shrink-0" />
               <span>FOLLOW ON INSTAGRAM</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
             </a>
 
             {/* Slider Navigation Arrows (Desktop / Tablet) */}
@@ -283,7 +283,7 @@ export const ReelsSection: React.FC = () => {
                     onMouseEnter={() => setHoveredReelId(reel.id)}
                     onMouseLeave={() => setHoveredReelId(null)}
                     onClick={() => setActiveModalReel(reel)}
-                    className="group relative w-[205px] sm:w-[225px] md:w-[245px] lg:w-[255px] aspect-[9/15.5] shrink-0 snap-center rounded-2xl glass-panel border border-white/15 hover:border-[#FF1053] overflow-hidden transition-all duration-400 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(230,0,76,0.35)] flex flex-col justify-between cursor-pointer"
+                    className="group relative w-[185px] sm:w-[225px] md:w-[245px] lg:w-[255px] aspect-[9/15.5] shrink-0 snap-center rounded-2xl glass-panel border border-white/15 hover:border-[#FF1053] overflow-hidden transition-all duration-400 hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(230,0,76,0.35)] flex flex-col justify-between cursor-pointer"
                   >
                     {/* Visual Media Background */}
                     <div className="absolute inset-0 z-0 bg-[#080104] overflow-hidden">

@@ -116,24 +116,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <ParticleCanvas />
 
       {/* 4. HERO CONTENT */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-28 pb-16 sm:pt-32 sm:pb-20 md:py-36">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-24 pb-12 sm:pt-32 sm:pb-20 md:py-36">
         {/* Soft directional scrim to guarantee 100% legibility against the 3D mascot video */}
-        <div className="max-w-2xl lg:max-w-3xl flex flex-col items-start text-left relative p-4 sm:p-6 md:p-8 -ml-4 sm:-ml-6 md:-ml-8 rounded-3xl bg-gradient-to-r from-[#080104]/85 via-[#080104]/50 to-transparent backdrop-blur-[2px]">
+        <div className="max-w-2xl lg:max-w-3xl flex flex-col items-start text-left relative p-3.5 sm:p-6 md:p-8 sm:-ml-6 md:-ml-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#080104]/90 via-[#080104]/60 to-transparent backdrop-blur-[2px] w-full">
           
           {/* Small Technical Label */}
-          <div className="inline-flex items-center space-x-2.5 px-3 sm:px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/40 mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(230,0,76,0.2)]">
-            <span className="w-2 h-2 rounded-full bg-[#E6004C] shadow-[0_0_8px_#E6004C] animate-pulse" />
-            <span className="font-tech text-[#FF1053] text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+          <div className="inline-flex items-center space-x-2 px-2.5 sm:px-3.5 py-1.5 rounded-full glass-panel border border-[#E6004C]/40 mb-3.5 sm:mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(230,0,76,0.2)]">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#E6004C] shadow-[0_0_8px_#E6004C] animate-pulse" />
+            <span className="font-tech text-[#FF1053] text-[9.5px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.25em]">
               DIGITAL EXPERIENCES
             </span>
             <span className="text-white/30 text-xs">|</span>
-            <span className="text-white/70 text-[10px] sm:text-[11px] font-tech tracking-wider">
+            <span className="text-white/70 text-[9.5px] sm:text-[11px] font-tech tracking-wider">
               EST. 2026
             </span>
           </div>
 
           {/* Main Headline: Bold Sans + Elegant Italic Serif with Text Reveal */}
-          <h1 className="hero-headline mb-5 sm:mb-6 text-balance drop-shadow-[0_12px_40px_rgba(0,0,0,0.95)] animate-headline-reveal">
+          <h1 className="hero-headline mb-4 sm:mb-6 text-balance drop-shadow-[0_12px_40px_rgba(0,0,0,0.95)] animate-headline-reveal">
             <span className="block font-display font-black text-white uppercase tracking-[-0.035em] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
               {heroContent.mainHeading}
             </span>
@@ -143,39 +143,39 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </h1>
 
           {/* Supporting Text */}
-          <p className="max-w-xl text-sm sm:text-base md:text-lg text-white/90 font-body font-normal leading-relaxed mb-8 sm:mb-10 tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+          <p className="max-w-xl text-[13px] sm:text-base md:text-lg text-white/90 font-body font-normal leading-relaxed mb-6 sm:mb-10 tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
             {heroContent.description}
           </p>
 
           {/* Buttons: LET'S BUILD SOMETHING & EXPLORE OUR WORK */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-5 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full sm:w-auto">
             <button
               onClick={() => onNavigate('contact')}
-              className="group relative px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-display font-bold text-xs sm:text-sm tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#E6004C] to-[#FF1053] shadow-[0_0_35px_rgba(230,0,76,0.45)] hover:shadow-[0_0_50px_rgba(230,0,76,0.7)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center space-x-2.5 w-full sm:w-auto"
+              className="group relative px-5 sm:px-8 py-3.5 sm:py-4 rounded-xl font-display font-bold text-xs sm:text-sm tracking-[0.14em] sm:tracking-[0.16em] uppercase text-white bg-gradient-to-r from-[#E6004C] to-[#FF1053] shadow-[0_0_35px_rgba(230,0,76,0.45)] hover:shadow-[0_0_50px_rgba(230,0,76,0.7)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto text-center"
             >
               <span>{heroContent.primaryCtaText}</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0" />
             </button>
 
             <button
               onClick={() => onNavigate('work')}
-              className="px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl font-display font-semibold text-xs sm:text-sm tracking-[0.16em] uppercase text-white/90 glass-panel border border-white/20 hover:border-white/40 hover:bg-white/[0.08] active:scale-[0.98] transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto"
+              className="px-5 sm:px-7 py-3.5 sm:py-4 rounded-xl font-display font-semibold text-xs sm:text-sm tracking-[0.14em] sm:tracking-[0.16em] uppercase text-white/90 glass-panel border border-white/20 hover:border-white/40 hover:bg-white/[0.08] active:scale-[0.98] transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto text-center"
             >
               <span>{heroContent.secondaryCtaText}</span>
             </button>
           </div>
 
           {/* Trust Proof Micro-Badges */}
-          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 w-full flex flex-col sm:flex-row items-start sm:items-center gap-3.5 sm:gap-8 lg:gap-10 text-white/60">
-            <div className="flex items-center space-x-2.5">
-              <Award className="w-4 h-4 text-[#FF1053] shrink-0" />
-              <span className="font-tech text-[11px] sm:text-xs tracking-wider text-white/80">
+          <div className="mt-6 sm:mt-12 pt-5 sm:pt-8 border-t border-white/10 w-full flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-8 lg:gap-10 text-white/60">
+            <div className="flex items-center space-x-2">
+              <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FF1053] shrink-0" />
+              <span className="font-tech text-[10px] sm:text-xs tracking-wider text-white/80">
                 AWWWARDS / FWA / RED DOT
               </span>
             </div>
-            <div className="flex items-center space-x-2.5">
-              <Zap className="w-4 h-4 text-[#E6004C] shrink-0" />
-              <span className="font-tech text-[11px] sm:text-xs tracking-wider text-white/80">
+            <div className="flex items-center space-x-2">
+              <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E6004C] shrink-0" />
+              <span className="font-tech text-[10px] sm:text-xs tracking-wider text-white/80">
                 &lt; 18MS ULTRA LATENCY
               </span>
             </div>

@@ -125,8 +125,8 @@ h1, h2, h3, h4 {
 
 /* Fluid Hero Headline Typography */
 .hero-headline {
-  font-size: clamp(2rem, 5.2vw, 4.25rem);
-  line-height: 1.04;
+  font-size: clamp(1.85rem, 5.2vw, 4.25rem);
+  line-height: 1.05;
   letter-spacing: -0.025em;
 }
 

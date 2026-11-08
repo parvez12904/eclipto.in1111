@@ -36,11 +36,11 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'py-3 bg-[#080104]/75 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-          : 'py-6 bg-transparent'
+          ? 'py-2.5 sm:py-3 bg-[#080104]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+          : 'py-3.5 sm:py-6 bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex items-center justify-between">
         {/* Navigation Links (Desktop) */}
         <nav
           className="hidden md:flex items-center space-x-5 lg:space-x-8"
@@ -74,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
 
         {/* RIGHT: Glass Outline Button (Desktop) & Hamburger (Mobile) */}
-        <div className="flex items-center space-x-4 ml-auto md:ml-0">
+        <div className="flex items-center space-x-3 sm:space-x-4 ml-auto md:ml-0">
           <button
             onClick={() => onNavigate('contact')}
             title="Connect with Parvez Khan (+91 77208 35581)"
@@ -88,10 +88,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Mobile Hamburger Button */}
           <button
             onClick={onOpenMobileMenu}
-            className="p-2.5 rounded-lg md:hidden glass-panel border border-white/20 text-white/80 hover:text-white hover:border-[#E6004C] transition-colors focus:outline-none"
+            className="w-10 h-10 rounded-xl md:hidden glass-panel border border-white/20 text-white/90 hover:text-white hover:border-[#FF1053] active:scale-95 transition-all flex items-center justify-center focus:outline-none shrink-0"
             aria-label="Open mobile menu"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-5 h-5 text-white" />
           </button>
         </div>
       </div>

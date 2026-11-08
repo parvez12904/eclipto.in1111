@@ -48,7 +48,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#080104]/98 backdrop-blur-2xl px-6 py-8 md:hidden transition-all duration-300 overflow-y-auto"
+      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#080104]/98 backdrop-blur-2xl px-5 py-6 sm:px-6 sm:py-8 md:hidden transition-all duration-300 overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-label="Mobile Navigation Menu"
